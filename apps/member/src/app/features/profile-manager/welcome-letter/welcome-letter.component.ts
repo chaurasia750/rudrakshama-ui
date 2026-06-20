@@ -91,7 +91,7 @@ export class WelcomeLetterComponent implements OnInit {
         backgroundColor: '#ffffff',
       });
 
-      const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL('image/jpeg', 0.8);
       const pdf = new jsPDF('p', 'mm', 'a4');
       const pdfW = pdf.internal.pageSize.getWidth(); // 210mm
       const pdfH = pdf.internal.pageSize.getHeight(); // 297mm
@@ -104,7 +104,7 @@ export class WelcomeLetterComponent implements OnInit {
 
       if (totalHmm <= pdfH) {
         // fits in one page
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfW, totalHmm);
+        pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, totalHmm);
       } else {
         // split across multiple A4 pages
         const pageHpx = pdfH / ratio; // pixel height of one A4 page
@@ -119,11 +119,11 @@ export class WelcomeLetterComponent implements OnInit {
           const ctx = pageCanvas.getContext('2d')!;
           ctx.drawImage(canvas, 0, srcY, imgW, cropH, 0, 0, imgW, cropH);
 
-          const pageImgData = pageCanvas.toDataURL('image/png');
+          const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.8);
           const pageHmm = cropH * ratio;
 
           if (page > 0) pdf.addPage();
-          pdf.addImage(pageImgData, 'PNG', 0, 0, pdfW, pageHmm);
+          pdf.addImage(pageImgData, 'JPEG', 0, 0, pdfW, pageHmm);
 
           srcY += pageHpx;
           page++;
