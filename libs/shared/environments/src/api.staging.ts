@@ -1,5 +1,5 @@
 export const apiConfig = {
-  baseUrl: 'https://aroneapi.bankatm.in',
+  baseUrl: 'https://api.anonindia.org',
   authCookies: {
     accessToken: 'ANON_qa_accessToken',
     refreshToken: 'ANON_qa_refreshToken',

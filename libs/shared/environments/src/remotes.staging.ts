@@ -3,7 +3,7 @@ import { RemoteConfig } from '@shared/types';
 export const remoteConfig: RemoteConfig[] = [
   {
     key: 'admin',
-    entry: 'https://aroneapp.bankatm.in/remoteEntry.mjs',
+    entry: 'https://app.anonindia.org/remoteEntry.mjs',
     exposedModule: './Module',
     route: '/admin',
     displayName: 'Admin Portal',
@@ -16,7 +16,7 @@ export const remoteConfig: RemoteConfig[] = [
   },
   {
     key: 'member',
-    entry: 'https://aronemember.bankatm.in/remoteEntry.mjs',
+    entry: 'https://member.anonindia.org/remoteEntry.mjs',
     exposedModule: './Module',
     route: '/member',
     displayName: 'Member Portal',
@@ -29,7 +29,7 @@ export const remoteConfig: RemoteConfig[] = [
   },
   {
     key: 'management',
-    entry: 'https://staging-cdn.company.com/management/remoteEntry.js',
+    entry: 'https://management.anonindia.org/remoteEntry.mjs',
     exposedModule: './Module',
     route: '/management',
     displayName: 'Management Dashboard',
