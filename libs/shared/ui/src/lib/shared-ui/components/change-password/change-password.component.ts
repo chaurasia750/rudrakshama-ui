@@ -2,6 +2,7 @@ import { Component, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { apiConfig } from '@shared/environments/api.dev';
 import { finalize } from 'rxjs';
 
@@ -13,6 +14,7 @@ import { finalize } from 'rxjs';
 })
 export class ChangePasswordComponent {
   private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
 
   readonly appPrefix = input<string>('');
 
@@ -49,10 +51,14 @@ export class ChangePasswordComponent {
         next: (res) => {
           this.successMessage.set((res as any)?.message || 'Password changed successfully');
           this.model = { oldPassword: '', newPassword: '', confirmPassword: '' };
+          const prefix = this.appPrefix();
+          const dashboard = prefix === 'member' ? `/${prefix}` : `/${prefix}/dashboard`;
+          this.router.navigate([dashboard]);
         },
         error: (err) => {
           const body = err.error;
-          const msg = body?.message?.text || body?.message || err.message || 'Failed to change password';
+          const raw = body?.message?.text ?? body?.message?.message ?? body?.message ?? err.message ?? 'Failed to change password';
+          const msg = typeof raw === 'string' ? raw : JSON.stringify(raw);
           this.errorMessage.set(msg);
         },
       });

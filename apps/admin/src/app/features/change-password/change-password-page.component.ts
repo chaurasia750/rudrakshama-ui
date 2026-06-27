@@ -8,7 +8,7 @@ import { ChangePasswordComponent } from '@shared/ui/src';
   template: `
     <div class="p-6">
       <h2 class="mb-6 text-xl font-semibold text-primary-fg">Change Password</h2>
-      <shared-change-password />
+      <shared-change-password appPrefix="admin" />
     </div>
   `,
 })

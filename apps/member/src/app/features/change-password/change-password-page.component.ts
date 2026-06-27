@@ -9,7 +9,7 @@ import { ChangePasswordComponent } from '@shared/ui/src';
   imports: [PageBreadcrumbComponent, ChangePasswordComponent],
   template: `
     <app-page-breadcrumb pageTitle="Change Password" />
-    <shared-change-password />
+    <shared-change-password appPrefix="member" />
   `,
 })
 export class ChangePasswordPageComponent {}
