@@ -47,18 +47,22 @@
         </div>
         <div>
           <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-            Intro Reg. No.
+            Sponsor Name
           </p>
           <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-            {{ val(profile?.introRegNo) }}
+            @if (profile?.sponsorDetails) {
+              {{ [profile?.sponsorDetails?.title, profile?.sponsorDetails?.fName, profile?.sponsorDetails?.lName].filter(v => v?.trim()).join(' ') }}
+            } @else {
+              —
+            }
           </p>
         </div>
         <div>
           <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-            Intro Side
+            Sponsor ID
           </p>
           <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-            {{ val(profile?.introSide) }}
+            {{ val(profile?.sponsorDetails?.loginId) }}
           </p>
         </div>
       </div>

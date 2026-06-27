@@ -120,6 +120,18 @@
                   <span class="truncate leading-none text-sidebar-primary">{{ nav.name }}</span>
                 }
               </a>
+            } @else {
+              <div
+                class="group relative flex items-center gap-3 px-4 py-2.5 rounded-xl text-[14px] font-medium text-sidebar-primary cursor-default opacity-60"
+              >
+                <span
+                  class="flex-shrink-0 flex items-center justify-center w-[34px] h-[34px] rounded-md [&>svg]:w-[18px] [&>svg]:h-[18px] bg-surface-hover text-secondary-fg"
+                  [innerHTML]="nav.icon | safeHtml"
+                ></span>
+                @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {
+                  <span class="truncate leading-none text-sidebar-primary">{{ nav.name }}</span>
+                }
+              </div>
             }
           }
         </div>

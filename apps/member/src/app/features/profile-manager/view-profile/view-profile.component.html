@@ -109,12 +109,18 @@
         </h3>
         <div class="mt-4 space-y-4">
           <div class="rounded-xl bg-surface-hover px-4 py-3">
-            <p class="text-xs text-secondary-fg">Intro Reg. No.</p>
-            <p class="mt-1 text-sm font-semibold text-primary-fg">{{ val(profile?.introRegNo) }}</p>
+            <p class="text-xs text-secondary-fg">Sponsor Name</p>
+            <p class="mt-1 text-sm font-semibold text-primary-fg">
+              @if (profile?.sponsorDetails) {
+                {{ [profile?.sponsorDetails?.title, profile?.sponsorDetails?.fName, profile?.sponsorDetails?.lName].filter(v => v?.trim()).join(' ') }}
+              } @else {
+                —
+              }
+            </p>
           </div>
           <div class="rounded-xl bg-surface-hover px-4 py-3">
-            <p class="text-xs text-secondary-fg">Intro Side</p>
-            <p class="mt-1 text-sm font-semibold text-primary-fg">{{ val(profile?.introSide) }}</p>
+            <p class="text-xs text-secondary-fg">Sponsor ID</p>
+            <p class="mt-1 text-sm font-semibold text-primary-fg">{{ val(profile?.sponsorDetails?.loginId) }}</p>
           </div>
         </div>
       </article>
