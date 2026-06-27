@@ -13,6 +13,8 @@ export class AdminLayoutComponent {
     appName: 'Admin Portal',
     brandName: 'Anon India',
     appSubtitle: 'Administration Console',
+    profileRoute: '/admin/change-password',
+    changePasswordRoute: '/admin/change-password',
 
     user: {
       name: 'Admin User',

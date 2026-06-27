@@ -12,6 +12,8 @@ export class UserDropdownComponent {
   @Input() userName = 'Member User';
   @Input() userRole = 'Member';
   @Input() userLoginId?: string;
+  @Input() profileRoute = '/profile';
+  @Input() changePasswordRoute = '/change-password';
   @Output() signOut = new EventEmitter<void>();
 
   isOpen = false;

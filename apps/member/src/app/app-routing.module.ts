@@ -27,6 +27,7 @@ import { InboxComponent } from './features/message-center/inbox/inbox.component'
 import { ComposeMailComponent } from './features/message-center/compose-mail/compose-mail.component';
 import { SentMailComponent } from './features/message-center/sent-mail/sent-mail.component';
 import { ReferralLinkComponent } from './features/referral-link/referral-link.component';
+import { ChangePasswordPageComponent } from './features/change-password/change-password-page.component';
 import { CalenderComponent } from './features/calender/calender.component';
 import { FormElementsComponent } from './features/forms/form-elements/form-elements.component';
 import { BasicTablesComponent } from './features/tables/basic-tables/basic-tables.component';
@@ -60,6 +61,7 @@ const routes: Routes = [
       { path: 'project/list', component: MemberInventoryListPageComponent },
       { path: 'project/:id', component: MemberInventoryDetailsPageComponent },
       { path: 'referral-link', component: ReferralLinkComponent },
+      { path: 'change-password', component: ChangePasswordPageComponent },
       { path: 'calendar', component: CalenderComponent },
       { path: 'sponsor-new', component: SponsorNewComponent },
       { path: 'view-profile', component: ViewProfileComponent },

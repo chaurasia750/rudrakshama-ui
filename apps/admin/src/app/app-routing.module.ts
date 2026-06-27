@@ -55,6 +55,13 @@ const routes: Routes = [
             (m) => m.AdminSponsorNewComponent
           ),
       },
+      {
+        path: 'change-password',
+        loadComponent: () =>
+          import('./features/change-password/change-password-page.component').then(
+            (m) => m.AdminChangePasswordPageComponent
+          ),
+      },
     ],
   },
 ];

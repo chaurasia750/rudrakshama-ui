@@ -25,6 +25,8 @@ export interface AppLayoutConfig {
   brandName?: string;
   footerText?: string;
   homeRoute?: string;
+  profileRoute?: string;
+  changePasswordRoute?: string;
   user?: AppLayoutUser;
   notifications?: AppLayoutNotification[];
   menu: AppLayoutMenuItem[];
