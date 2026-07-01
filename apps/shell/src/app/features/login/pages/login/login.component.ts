@@ -172,7 +172,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   /**
    * Toggle password visibility
    */
-  togglePasswordVisibility(): void {
+    togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
 }

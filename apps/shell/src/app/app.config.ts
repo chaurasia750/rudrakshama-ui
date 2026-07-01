@@ -10,6 +10,9 @@ import { remoteConfig } from '@shared/environments/remotes.dev';
 import { LoginComponent } from './features/login/pages/login/login.component';
 import { SignupComponent } from './features/signup/pages/signup/signup.component';
 import { UnauthorizedComponent } from './features/error/pages/unauthorized/unauthorized.component';
+import { HomeComponent } from './features/home/pages/home/home.component';
+import { AboutComponent } from './features/about/pages/about/about.component';
+import { ContactComponent } from './features/contact/pages/contact/contact.component';
 import { authGuard } from './core/guards/auth.guard';
 import { AUTH_COOKIE_CONFIG, AuthInterceptor, RoleId, provideAuthInitializer } from '@libs/shared/auth';
 import { AUTH_API_BASE_URL } from '@libs/shared/auth/lib/auth-api.service';
@@ -22,16 +25,32 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { apiConfig } from '@shared/environments/api.dev';
 
 export const appRoutes: Route[] = [
+  // Public pages
+  {
+    path: 'home',
+    component: HomeComponent,
+    data: { title: 'Home' }
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
+    data: { title: 'About' }
+  },
+  {
+    path: 'contact',
+    component: ContactComponent,
+    data: { title: 'Contact Us' }
+  },
   // Public login route
   {
     path: 'login',
     component: LoginComponent,
-    data: { title: 'Login' }
+    data: { title: 'Login', showNavbar: false }
   },
   {
     path: 'signup',
     component: SignupComponent,
-    data: { title: 'Signup' }
+    data: { title: 'Signup', showNavbar: false }
   },
   {
     path: 'error/unauthorized',
@@ -230,15 +249,15 @@ export const appRoutes: Route[] = [
     },
   },
   
-  // Default redirect to login (LoginComponent redirects authenticated users to their role route)
+  // Default redirect to home
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   
-  // All unmatched routes → login
-  { path: '**', redirectTo: '/login' }
+  // All unmatched routes → home
+  { path: '**', redirectTo: '/home' }
 ];
 
 export const appConfig: ApplicationConfig = {

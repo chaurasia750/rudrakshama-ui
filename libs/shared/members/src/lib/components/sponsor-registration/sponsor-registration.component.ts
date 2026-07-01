@@ -36,7 +36,7 @@ export class SponsorRegistrationComponent {
   @Input() submitLoadingText = 'Registering...';
   @Output() registered = new EventEmitter<string>();
 
-  sponsorPrefix = 'ANON';
+  sponsorPrefix = 'Rudra';
   sponsorLookupName = '';
   isSponsorLookupPending = false;
   isLoading = false;

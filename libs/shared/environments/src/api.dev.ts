@@ -1,5 +1,5 @@
 export const apiConfig = {
-  baseUrl: 'https://localhost:7056',
+  baseUrl: 'https://localhost:7048',
   authCookies: {
     accessToken: 'ANON_dev_accessToken',
     refreshToken: 'ANON_dev_refreshToken',
