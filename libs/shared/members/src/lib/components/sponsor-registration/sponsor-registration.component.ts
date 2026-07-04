@@ -36,7 +36,7 @@ export class SponsorRegistrationComponent {
   @Input() submitLoadingText = 'Registering...';
   @Output() registered = new EventEmitter<string>();
 
-  sponsorPrefix = 'Rudra';
+  sponsorPrefix = 'RUDR';
   sponsorLookupName = '';
   isSponsorLookupPending = false;
   isLoading = false;
@@ -53,9 +53,9 @@ export class SponsorRegistrationComponent {
     gender: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     phone: ['', [Validators.required, Validators.pattern(/^\d{4} \d{4} \d{2}$/)]],
-    businessCategory: ['', [Validators.required]],
-    aadhaarNo: ['', [Validators.required, Validators.pattern(/^\d{4} \d{4} \d{4}$/)]],
-    panCard: ['', [Validators.required, Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)]],
+    businessCategory: [''],
+    aadhaarNo: [''],
+    panCard: [''],
     sponsorId: ['', [Validators.required]],
     address: this.fb.group({
       addressLine1: ['', [Validators.required]],

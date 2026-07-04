@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AppLayoutConfig } from '@shared';
-import { DASHBOARD_ICON, INVENTORY_ICON, LEADS_ICON, MEMBERS_ICON, TREE_ICON, USERS_ICON } from './menu-icons';
+import { DASHBOARD_ICON, INVENTORY_ICON, LEADS_ICON, MASTER_ICON, MEMBERS_ICON, TREE_ICON, USERS_ICON } from './menu-icons';
 import { AuthService } from '@libs/shared/auth';
 
 @Component({
@@ -45,6 +45,9 @@ export class AdminLayoutComponent {
       { label: 'Members', section: 'MANAGEMENT', icon: MEMBERS_ICON, subItems: [
         { name: 'List', path: '/admin/members/list' },
         { name: 'Sponsor New', path: '/admin/sponsor-new' },
+      ]},
+      { label: 'Master', section: 'MANAGEMENT', icon: MASTER_ICON, subItems: [
+        { name: 'Country', path: '/admin/master/country' },
       ]},
       { label: 'Users', route: '/admin/users', section: 'MANAGEMENT', icon: USERS_ICON },
     ],

@@ -49,6 +49,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'master',
+        loadChildren: () =>
+          import('./modules/master/master.module').then(
+            (m) => m.MasterModule
+          ),
+      },
+      {
         path: 'sponsor-new',
         loadComponent: () =>
           import('./features/sponsor-new/sponsor-new.component').then(

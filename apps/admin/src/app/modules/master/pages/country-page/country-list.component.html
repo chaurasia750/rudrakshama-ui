@@ -1,0 +1,133 @@
+<div class="space-y-6">
+  <ui-breadcrumb pageTitle="Country" [items]="breadcrumbItems" />
+
+  <h2 class="text-lg font-semibold text-gray-800">Manage Country</h2>
+
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <ui-search-input
+      [value]="keyword"
+      placeholder="Search countries..."
+      (onSearch)="onSearch($event)"
+      class="w-full sm:w-72"
+    />
+    <ui-button variant="yellow" label="Add Country" (onClick)="onAdd()" />
+  </div>
+
+  @if (loading()) {
+    <div class="flex items-center justify-center py-20">
+      <div class="h-8 w-8 animate-spin rounded-full border-4 border-[#FFD000] border-t-transparent"></div>
+    </div>
+  } @else if (countries().length === 0) {
+    <div class="flex flex-col items-center justify-center py-20 text-gray-400">
+      <svg class="h-12 w-12 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+      </svg>
+      <p class="text-sm">No countries found</p>
+    </div>
+  } @else {
+    <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-100 bg-gray-50/50">
+              <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 w-14">S.No</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Name</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 w-24">Code</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 w-20">Status</th>
+              <th class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 w-28">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            @for (country of countries(); track country.id; let i = $index) {
+              <tr class="transition-colors hover:bg-gray-50/50">
+                <td class="px-4 py-3 text-gray-500 text-xs">{{ (pageIndex() - 1) * pageSize() + i + 1 }}</td>
+                <td class="px-4 py-3 font-medium text-gray-800">{{ country.name }}</td>
+                <td class="px-4 py-3">
+                  <span class="inline-flex rounded-md bg-gray-100 px-2 py-0.5 text-xs font-mono font-semibold text-gray-700">{{ country.code }}</span>
+                </td>
+                <td class="px-4 py-3">
+                  <span class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium"
+                    [ngClass]="country.isActive ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'">
+                    <span class="h-1.5 w-1.5 rounded-full" [ngClass]="country.isActive ? 'bg-emerald-500' : 'bg-red-500'"></span>
+                    {{ country.isActive ? 'Active' : 'Inactive' }}
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-right">
+                  <div class="inline-flex items-center gap-1">
+                    <button (click)="onEdit(country)"
+                      class="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700"
+                      title="Edit">
+                      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                    <button (click)="onDelete(country.id)"
+                      class="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-600"
+                      title="Delete">
+                      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+  <shared-side-panel
+    [isOpen]="panelOpen()"
+    [title]="isEdit() ? 'Edit Country' : 'Add Country'"
+    (closed)="onClosePanel()"
+  >
+    <div class="space-y-5">
+      <div>
+        <label class="mb-1.5 block text-xs font-medium text-gray-600">Country Name <span class="text-red-400">*</span></label>
+        <input type="text" formControlName="name"
+          class="block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20"
+          placeholder="Enter country name"
+          [ngClass]="countryForm.get('name')?.touched && countryForm.get('name')?.invalid ? 'border-red-400' : ''"
+        />
+        @if (countryForm.get('name')?.touched && countryForm.get('name')?.invalid) {
+          <p class="mt-1 text-xs text-red-500">Country name is required.</p>
+        }
+      </div>
+      <div>
+        <label class="mb-1.5 block text-xs font-medium text-gray-600">Country Code <span class="text-red-400">*</span></label>
+        <input type="text" formControlName="code"
+          class="block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20"
+          placeholder="e.g. IN, US"
+          [ngClass]="countryForm.get('code')?.touched && countryForm.get('code')?.invalid ? 'border-red-400' : ''"
+        />
+        @if (countryForm.get('code')?.touched && countryForm.get('code')?.invalid) {
+          <p class="mt-1 text-xs text-red-500">Country code is required.</p>
+        }
+      </div>
+      <div class="flex items-center gap-3 pt-2">
+        <ui-button variant="yellow" [label]="isEdit() ? 'Update' : 'Save'" [loading]="saving()" (onClick)="onSave()" />
+        <ui-button variant="outline" label="Cancel" (onClick)="onClosePanel()" />
+      </div>
+    </div>
+  </shared-side-panel>
+
+  <shared-confirm-dialog
+    [isOpen]="confirmOpen()"
+    title="Delete Country"
+    confirmText="Delete"
+    [confirmLoading]="deleting()"
+    (confirm)="onConfirmDelete()"
+    (cancel)="onCancelDelete()"
+  >
+    <p class="text-sm text-gray-600">Are you sure you want to delete this country? This action cannot be undone.</p>
+  </shared-confirm-dialog>
+</div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <ui-pagination
+        [pageIndex]="pageIndex()"
+        [pageSize]="pageSize()"
+        [totalCount]="totalCount()"
+        [totalPages]="totalPages()"
+        (pageChange)="onPageChange($event)"
+      />
+    </div>
+  }
+
+</div>
