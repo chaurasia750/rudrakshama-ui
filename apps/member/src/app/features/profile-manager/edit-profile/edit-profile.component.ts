@@ -218,6 +218,7 @@ memPan: profile.panCard,
     const v = this.editForm.getRawValue();
 
     const payload: UpdateProfilePayload = {
+      memberId: this.profile?.id ?? 0,
       title: v.title || '',
       firstName: v.firstName || '',
       lastName: v.lastName || '',

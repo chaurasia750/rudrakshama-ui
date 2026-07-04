@@ -2,16 +2,15 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { apiConfig } from '@shared/environments/api.dev';
-import { Country, CountryListResponse, CountryPayload, UpdateCountryStatusPayload } from '../models/country.model';
+import { District, DistrictListResponse, DistrictPayload, UpdateDistrictStatusPayload } from '../models/district.model';
 
 @Injectable()
-export class CountryService {
+export class DistrictService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = `${apiConfig.baseUrl}/master/country`;
+  private readonly baseUrl = `${apiConfig.baseUrl}/master/district`;
 
-  getList(params?: { keyword?: string; pageIndex?: number; pageSize?: number }): Observable<CountryListResponse> {
-    console.log('CountryService.getList called');
-    return this.http.get<Country[] | CountryListResponse>(this.baseUrl).pipe(
+  getList(params?: { keyword?: string; pageIndex?: number; pageSize?: number }): Observable<DistrictListResponse> {
+    return this.http.get<District[] | DistrictListResponse>(this.baseUrl).pipe(
       map((res: any) => {
         let rawItems: any[];
         if (Array.isArray(res)) rawItems = res;
@@ -19,9 +18,13 @@ export class CountryService {
         else if (res?.items && Array.isArray(res.items)) rawItems = res.items;
         else rawItems = [];
         const items = rawItems.map((r: any) => ({
-          id: r.cid ?? r.CID ?? r.id ?? 0,
-          name: r.countryName ?? r.CountryName ?? r.name ?? '',
-          isActive: r.cActive ?? r.active ?? r.Active ?? r.isActive ?? true,
+          id: r.distId ?? r.DistId ?? r.id ?? 0,
+          name: r.distName ?? r.DistName ?? r.name ?? '',
+          cid: r.cid ?? r.CID ?? 0,
+          countryName: r.countryName ?? r.CountryName ?? '',
+          sid: r.sid ?? r.SID ?? 0,
+          stateName: r.stateName ?? r.StateName ?? '',
+          isActive: r.active ?? r.Active ?? r.isActive ?? true,
         }));
         const keyword = params?.keyword?.toLowerCase();
         const filtered = keyword ? items.filter((c) => c.name.toLowerCase().includes(keyword)) : items;
@@ -33,20 +36,16 @@ export class CountryService {
     );
   }
 
-  getById(id: number): Observable<Country> {
-    return this.http.get<Country>(`${this.baseUrl}/${id}`);
+  getById(id: number): Observable<District> {
+    return this.http.get<District>(`${this.baseUrl}/${id}`);
   }
 
-  create(payload: CountryPayload): Observable<Country> {
-    return this.http.post<Country>(this.baseUrl, payload);
+  create(payload: DistrictPayload): Observable<District> {
+    return this.http.post<District>(this.baseUrl, payload);
   }
 
-  update(id: number, payload: CountryPayload): Observable<Country> {
-    return this.http.put<Country>(`${this.baseUrl}/${id}`, payload);
-  }
-
-  updateStatus(id: number, payload: UpdateCountryStatusPayload): Observable<Country> {
-    return this.http.put<Country>(`${this.baseUrl}/${id}`, payload);
+  updateStatus(id: number, payload: UpdateDistrictStatusPayload): Observable<District> {
+    return this.http.put<District>(`${this.baseUrl}/${id}`, payload);
   }
 
   delete(id: number): Observable<void> {

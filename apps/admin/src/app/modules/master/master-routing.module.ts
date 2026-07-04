@@ -9,6 +9,27 @@ const routes: Routes = [
         (m) => m.CountryListComponent
       ),
   },
+  {
+    path: 'state',
+    loadComponent: () =>
+      import('./pages/state-page/state-list.component').then(
+        (m) => m.StateListComponent
+      ),
+  },
+  {
+    path: 'district',
+    loadComponent: () =>
+      import('./pages/district-page/district-list.component').then(
+        (m) => m.DistrictListComponent
+      ),
+  },
+  {
+    path: 'city',
+    loadComponent: () =>
+      import('./pages/city-page/city-list.component').then(
+        (m) => m.CityListComponent
+      ),
+  },
 ];
 
 @NgModule({

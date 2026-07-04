@@ -3,11 +3,13 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { UiBreadcrumbComponent, BreadcrumbItem, UiButtonComponent, UiPaginationComponent, UiSearchInputComponent, ConfirmDialogComponent } from '@shared/ui/src';
+import { StateService } from '../../services/state.service';
+import { State, StatePayload } from '../../models/state.model';
 import { CountryService } from '../../services/country.service';
-import { Country, CountryPayload, UpdateCountryStatusPayload } from '../../models/country.model';
+import { Country } from '../../models/country.model';
 
 @Component({
-  selector: 'app-country-list',
+  selector: 'app-state-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -18,17 +20,19 @@ import { Country, CountryPayload, UpdateCountryStatusPayload } from '../../model
     UiSearchInputComponent,
     ConfirmDialogComponent,
   ],
-  templateUrl: './country-list.component.html',
+  templateUrl: './state-list.component.html',
 })
-export class CountryListComponent implements OnInit {
+export class StateListComponent implements OnInit {
+  private readonly stateService = inject(StateService);
   private readonly countryService = inject(CountryService);
   private readonly fb = inject(FormBuilder);
 
   readonly breadcrumbItems: BreadcrumbItem[] = [
     { label: 'Master' },
-    { label: 'Country' },
+    { label: 'State' },
   ];
 
+  readonly states = signal<State[]>([]);
   readonly countries = signal<Country[]>([]);
   readonly loading = signal(false);
   readonly pageIndex = signal(1);
@@ -48,37 +52,44 @@ export class CountryListComponent implements OnInit {
   keyword = '';
   private readonly searchSubject = new Subject<string>();
 
-  readonly countryForm = this.fb.group({
+  readonly stateForm = this.fb.group({
     name: ['', Validators.required],
+    cid: [0, Validators.required],
     isActive: [true, Validators.required],
   });
 
   ngOnInit(): void {
+    this.loadStates();
     this.loadCountries();
     this.searchSubject.pipe(debounceTime(400), distinctUntilChanged()).subscribe(() => {
       this.pageIndex.set(1);
-      this.loadCountries();
+      this.loadStates();
     });
   }
 
   private loadCountries(): void {
+    this.countryService.getList().subscribe({
+      next: (res) => this.countries.set(res.items),
+    });
+  }
+
+  private loadStates(): void {
     this.loading.set(true);
-    this.countryService.getList({
+    this.stateService.getList({
       keyword: this.keyword || undefined,
       pageIndex: this.pageIndex(),
       pageSize: this.pageSize(),
     }).subscribe({
       next: (res) => {
-        this.countries.set(res.items);
+        this.states.set(res.items);
         this.pageIndex.set(res.pageIndex);
         this.pageSize.set(res.pageSize);
         this.totalCount.set(res.totalCount);
         this.totalPages.set(res.totalPages);
         this.loading.set(false);
       },
-      error: (err) => {
-        console.error('Country load error:', err);
-        this.countries.set([]);
+      error: () => {
+        this.states.set([]);
         this.loading.set(false);
       },
     });
@@ -91,51 +102,56 @@ export class CountryListComponent implements OnInit {
 
   onPageChange(page: number): void {
     this.pageIndex.set(page);
-    this.loadCountries();
+    this.loadStates();
   }
 
   onAdd(): void {
     this.isEdit.set(false);
     this.editId.set(null);
-    this.countryForm.reset();
+    this.stateForm.reset({ cid: 0, isActive: true });
     this.panelOpen.set(true);
   }
 
-  onEdit(country: Country): void {
+  onEdit(state: State): void {
     this.isEdit.set(true);
-    this.editId.set(country.id);
-    this.countryForm.patchValue({ name: country.name, isActive: country.isActive });
+    this.editId.set(state.id);
+    this.stateForm.patchValue({ name: state.name, cid: state.cid, isActive: state.isActive });
     this.panelOpen.set(true);
   }
 
   onClosePanel(): void {
     this.panelOpen.set(false);
-    this.countryForm.reset();
+    this.stateForm.reset();
   }
 
   onSave(): void {
-    if (this.countryForm.invalid) {
-      this.countryForm.markAllAsTouched();
+    if (this.stateForm.invalid) {
+      this.stateForm.markAllAsTouched();
       return;
     }
     this.saving.set(true);
-    const payload = this.countryForm.getRawValue() as CountryPayload;
+    const raw = this.stateForm.getRawValue();
     const id = this.editId();
 
-    const request$ = id
-      ? this.countryService.updateStatus(id, { cActive: payload.isActive })
-      : this.countryService.create(payload);
-
-    request$.subscribe({
-      next: () => {
-        this.saving.set(false);
-        this.onClosePanel();
-        this.loadCountries();
-      },
-      error: () => {
-        this.saving.set(false);
-      },
-    });
+    if (id) {
+      this.stateService.updateStatus(id, { sActive: raw.isActive! }).subscribe({
+        next: () => {
+          this.saving.set(false);
+          this.onClosePanel();
+          this.loadStates();
+        },
+        error: () => this.saving.set(false),
+      });
+    } else {
+      this.stateService.create({ name: raw.name!, cid: raw.cid!, isActive: raw.isActive! }).subscribe({
+        next: () => {
+          this.saving.set(false);
+          this.onClosePanel();
+          this.loadStates();
+        },
+        error: () => this.saving.set(false),
+      });
+    }
   }
 
   onDelete(id: number): void {
@@ -147,16 +163,14 @@ export class CountryListComponent implements OnInit {
     const id = this.deleteId();
     if (!id) return;
     this.deleting.set(true);
-    this.countryService.delete(id).subscribe({
+    this.stateService.delete(id).subscribe({
       next: () => {
         this.deleting.set(false);
         this.confirmOpen.set(false);
         this.deleteId.set(null);
-        this.loadCountries();
+        this.loadStates();
       },
-      error: () => {
-        this.deleting.set(false);
-      },
+      error: () => this.deleting.set(false),
     });
   }
 

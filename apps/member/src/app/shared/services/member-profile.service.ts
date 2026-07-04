@@ -24,6 +24,7 @@ export interface SponsorDetails {
 }
 
 export interface UpdateProfilePayload {
+  memberId: number;
   title: string;
   firstName: string;
   lastName: string;

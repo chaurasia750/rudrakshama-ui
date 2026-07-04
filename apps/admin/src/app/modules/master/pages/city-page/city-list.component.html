@@ -1,0 +1,125 @@
+<div class="space-y-6">
+  <ui-breadcrumb pageTitle="City" [items]="breadcrumbItems" />
+
+  <h2 class="text-lg font-semibold text-gray-800">Manage City</h2>
+
+  @if (panelOpen()) {
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg shadow-gray-100/50">
+      <h3 class="mb-5 text-base font-bold text-gray-800 tracking-wide">Edit City</h3>
+      <div [formGroup]="cityForm" class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div>
+          <label class="mb-1.5 block text-sm font-semibold text-gray-700 tracking-wide">City Name <span class="text-red-400">*</span></label>
+          <input type="text" formControlName="cityName"
+            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-all duration-200 hover:border-[#FFD000] hover:shadow-sm focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20"
+            placeholder="Enter city name" />
+          @if (cityForm.get('cityName')?.touched && cityForm.get('cityName')?.invalid) {
+            <p class="mt-1.5 text-xs text-red-500">City name is required.</p>
+          }
+        </div>
+        <div>
+          <label class="mb-1.5 block text-sm font-semibold text-gray-700 tracking-wide">Pincode</label>
+          <input type="text" formControlName="pincode" maxlength="6" (input)="onInputPincode($event)"
+            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-all duration-200 hover:border-[#FFD000] hover:shadow-sm focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20"
+            placeholder="Enter 6-digit pincode" />
+          @if (cityForm.get('pincode')?.touched && cityForm.get('pincode')?.invalid) {
+            @if (cityForm.get('pincode')?.errors?.['minlength'] || cityForm.get('pincode')?.errors?.['maxlength']) {
+              <p class="mt-1.5 text-xs text-red-500">Pincode must be exactly 6 digits.</p>
+            }
+          }
+        </div>
+        <div class="sm:col-span-2">
+          <label class="mb-2 block text-sm font-semibold text-gray-700 tracking-wide">Status</label>
+          <div class="flex items-center gap-4">
+            <label class="flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-5 py-2.5 text-sm font-medium transition-all duration-200"
+              [ngClass]="cityForm.get('isActive')?.value === true ? 'border-[#FFD000] bg-[#FFD000]/10 text-[#FFD000] shadow-sm' : 'border-gray-200 bg-white text-gray-600 hover:border-[#FFD000]'">
+              <input type="radio" formControlName="isActive" [value]="true" class="h-4 w-4 accent-[#FFD000]" />
+              Active
+            </label>
+            <label class="flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-5 py-2.5 text-sm font-medium transition-all duration-200"
+              [ngClass]="cityForm.get('isActive')?.value === false ? 'border-[#FFD000] bg-[#FFD000]/10 text-[#FFD000] shadow-sm' : 'border-gray-200 bg-white text-gray-600 hover:border-[#FFD000]'">
+              <input type="radio" formControlName="isActive" [value]="false" class="h-4 w-4 accent-[#FFD000]" />
+              Inactive
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 flex items-center gap-3 pt-4 border-t border-gray-100">
+        <ui-button variant="yellow" label="Update" [loading]="saving()" (onClick)="onSave()" />
+        <ui-button variant="outline" label="Cancel" (onClick)="onClosePanel()" />
+      </div>
+    </div>
+  }
+
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <ui-search-input
+      [value]="keyword"
+      placeholder="Search cities..."
+      (onSearch)="onSearch($event)"
+      class="w-full sm:w-72"
+    />
+  </div>
+
+  @if (loading()) {
+    <div class="flex items-center justify-center py-20">
+      <div class="h-8 w-8 animate-spin rounded-full border-4 border-[#FFD000] border-t-transparent"></div>
+    </div>
+  } @else if (cities().length === 0) {
+    <div class="flex flex-col items-center justify-center py-20 text-gray-400">
+      <p class="text-sm">No cities found</p>
+    </div>
+  } @else {
+    <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-100 bg-gray-50/50">
+              <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 w-14">S.No</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Country</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">State</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">District</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">City</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 w-20">Pincode</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 w-20">Status</th>
+              <th class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 w-28">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            @for (city of cities(); track city.id; let i = $index) {
+              <tr class="transition-colors hover:bg-[#FFD000]/10" [ngClass]="i % 2 === 0 ? 'bg-white' : 'bg-[#FFD000]/5'">
+                <td class="px-4 py-3 text-gray-500 text-xs">{{ (pageIndex() - 1) * pageSize() + i + 1 }}</td>
+                <td class="px-4 py-3 text-gray-600">{{ city.countryName }}</td>
+                <td class="px-4 py-3 text-gray-600">{{ city.stateName }}</td>
+                <td class="px-4 py-3 text-gray-600">{{ city.districtName }}</td>
+                <td class="px-4 py-3 font-medium text-gray-800">{{ city.cityName }}</td>
+                <td class="px-4 py-3 text-gray-600">{{ city.pincode }}</td>
+                <td class="px-4 py-3">
+                  <span class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium"
+                    [ngClass]="city.isActive ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'">
+                    <span class="h-1.5 w-1.5 rounded-full" [ngClass]="city.isActive ? 'bg-emerald-500' : 'bg-red-500'"></span>
+                    {{ city.isActive ? 'Active' : 'Inactive' }}
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-right">
+                  <button (click)="onEdit(city)"
+                    class="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700"
+                    title="Edit">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <ui-pagination
+        [pageIndex]="pageIndex()"
+        [pageSize]="pageSize()"
+        [totalCount]="totalCount()"
+        [totalPages]="totalPages()"
+        (pageChange)="onPageChange($event)"
+      />
+    </div>
+  }
+</div>

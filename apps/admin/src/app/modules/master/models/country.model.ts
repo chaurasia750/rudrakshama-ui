@@ -1,7 +1,6 @@
 export interface Country {
   id: number;
   name: string;
-  code: string;
   isActive: boolean;
 }
 
@@ -15,5 +14,9 @@ export interface CountryListResponse {
 
 export interface CountryPayload {
   name: string;
-  code: string;
+  isActive: boolean;
+}
+
+export interface UpdateCountryStatusPayload {
+  cActive: boolean;
 }

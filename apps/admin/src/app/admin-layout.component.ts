@@ -48,6 +48,9 @@ export class AdminLayoutComponent {
       ]},
       { label: 'Master', section: 'MANAGEMENT', icon: MASTER_ICON, subItems: [
         { name: 'Country', path: '/admin/master/country' },
+        { name: 'State', path: '/admin/master/state' },
+        { name: 'District', path: '/admin/master/district' },
+        { name: 'City', path: '/admin/master/city' },
       ]},
       { label: 'Users', route: '/admin/users', section: 'MANAGEMENT', icon: USERS_ICON },
     ],
