@@ -1,7 +1,15 @@
 <div class="space-y-6">
-  <ui-breadcrumb pageTitle="State" [items]="breadcrumbItems" />
-
-  <h2 class="text-lg font-semibold text-gray-800">Manage State</h2>
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div class="min-w-0 flex-1">
+      <ui-breadcrumb pageTitle="State" [items]="breadcrumbItems" />
+      <h2 class="mt-1 text-xl sm:text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
+        <svg class="h-6 w-6 sm:h-7 sm:w-7 text-[#FFD000]" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6zm1 2h6v1H7V6zm6 3H7v1h6V9zm-6 3h3v1H7v-1z" clip-rule="evenodd" />
+        </svg>
+        Manage State
+      </h2>
+    </div>
+  </div>
 
   <div class="flex flex-wrap items-center justify-between gap-3">
     <ui-button variant="yellow" label="Add State" (onClick)="onAdd()" />

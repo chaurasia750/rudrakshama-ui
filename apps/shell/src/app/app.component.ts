@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     let route: ActivatedRoute | null = this.router.routerState.root;
     while (route?.firstChild) route = route.firstChild;
-    this.showNavbar = route?.snapshot?.data?.['showNavbar'] !== false;
+    this.showNavbar = route?.snapshot?.data?.['showNavbar'] === true;
 
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd),
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit, OnDestroy {
         return r?.snapshot?.data?.['showNavbar'];
       })
     ).subscribe(show => {
-      this.showNavbar = show !== false;
+      this.showNavbar = show === true;
     });
   }
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppLayoutNotification } from '../../models/layout.models';
 import { SidebarService } from '../../services/sidebar.service';
@@ -62,31 +62,6 @@ import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component'
             fill="currentColor" />
         </svg>
       </button>
-      <div class="hidden xl:block">
-        <form>
-          <div class="relative">
-            <span class="absolute -translate-y-1/2 pointer-events-none left-4 top-1/2">
-              <svg class="text-muted-fg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M3.04175 9.37363C3.04175 5.87693 5.87711 3.04199 9.37508 3.04199C12.8731 3.04199 15.7084 5.87693 15.7084 9.37363C15.7084 12.8703 12.8731 15.7053 9.37508 15.7053C5.87711 15.7053 3.04175 12.8703 3.04175 9.37363ZM9.37508 1.54199C5.04902 1.54199 1.54175 5.04817 1.54175 9.37363C1.54175 13.6991 5.04902 17.2053 9.37508 17.2053C11.2674 17.2053 13.003 16.5344 14.357 15.4176L17.177 18.238C17.4699 18.5309 17.9448 18.5309 18.2377 18.238C18.5306 17.9451 18.5306 17.4703 18.2377 17.1774L15.418 14.3573C16.5365 13.0033 17.2084 11.2669 17.2084 9.37363C17.2084 5.04817 13.7011 1.54199 9.37508 1.54199Z"
-                  fill="" />
-              </svg>
-            </span>
-            <input
-              #searchInput
-              type="text"
-              placeholder="Search or type command..."
-              class="h-11 w-full rounded-xl border border-default bg-surface py-2.5 pl-12 pr-14 text-sm text-primary-fg/90 placeholder:text-muted-fg shadow-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 xl:w-[430px]" />
-            <button
-              class="absolute right-2.5 top-1/2 inline-flex -translate-y-1/2 items-center gap-0.5 rounded-lg border border-default bg-surface-hover px-[7px] py-[4.5px] text-xs -tracking-[0.2px] text-muted-fg">
-              <span>⌘</span>
-              <span>K</span>
-            </button>
-          </div>
-        </form>
-      </div>
     </div>
 
     <div
@@ -114,8 +89,6 @@ export class SharedAppHeaderComponent {
   @Input() notifications: AppLayoutNotification[] = [];
   @Output() signOut = new EventEmitter<void>();
 
-  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
-
   constructor(public sidebarService: SidebarService) {
     this.isMobileOpen$ = this.sidebarService.isMobileOpen$;
   }
@@ -131,19 +104,4 @@ export class SharedAppHeaderComponent {
   toggleApplicationMenu() {
     this.isApplicationMenuOpen = !this.isApplicationMenuOpen;
   }
-
-  ngAfterViewInit() {
-    document.addEventListener('keydown', this.handleKeyDown);
-  }
-
-  ngOnDestroy() {
-    document.removeEventListener('keydown', this.handleKeyDown);
-  }
-
-  handleKeyDown = (event: KeyboardEvent) => {
-    if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
-      event.preventDefault();
-      this.searchInput?.nativeElement.focus();
-    }
-  };
 }

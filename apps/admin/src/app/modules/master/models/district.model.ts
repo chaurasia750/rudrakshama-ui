@@ -23,6 +23,17 @@ export interface DistrictPayload {
   isActive: boolean;
 }
 
+export interface DistrictFilterModel {
+  keyword?: string;
+  pageIndex?: number;
+  pageSize?: number;
+  sortingOrder?: number;
+  colName?: string;
+  cid?: number;
+  sid?: number;
+  active?: boolean;
+}
+
 export interface UpdateDistrictStatusPayload {
   active: boolean;
 }

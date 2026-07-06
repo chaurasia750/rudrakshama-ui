@@ -19,6 +19,18 @@ export interface CityListResponse {
   totalPages: number;
 }
 
+export interface CityFilterModel {
+  keyword?: string;
+  pageIndex?: number;
+  pageSize?: number;
+  sortingOrder?: number;
+  colName?: string;
+  cid?: number;
+  sid?: number;
+  distId?: number;
+  active?: boolean;
+}
+
 export interface UpdateCityPayload {
   cityName: string;
   pincode: string;

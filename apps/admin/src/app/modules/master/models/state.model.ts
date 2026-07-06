@@ -20,6 +20,16 @@ export interface StatePayload {
   isActive: boolean;
 }
 
+export interface StateFilterModel {
+  keyword?: string;
+  pageIndex?: number;
+  pageSize?: number;
+  sortingOrder?: number;
+  colName?: string;
+  cid?: number;
+  sActive?: boolean;
+}
+
 export interface UpdateStateStatusPayload {
   sActive: boolean;
 }

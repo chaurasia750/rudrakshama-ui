@@ -12,6 +12,15 @@ export interface CountryListResponse {
   totalPages: number;
 }
 
+export interface CountryFilterModel {
+  keyword?: string;
+  pageIndex?: number;
+  pageSize?: number;
+  sortingOrder?: number;
+  colName?: string;
+  active?: boolean;
+}
+
 export interface CountryPayload {
   name: string;
   isActive: boolean;

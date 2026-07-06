@@ -29,7 +29,7 @@ export const appRoutes: Route[] = [
   {
     path: 'home',
     component: HomeComponent,
-    data: { title: 'Home' }
+    data: { title: 'Home', showNavbar: true }
   },
   {
     path: 'about',
