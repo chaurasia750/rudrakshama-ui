@@ -234,61 +234,12 @@ import { FormsModule } from '@angular/forms';
       </section>
 
       <!-- ═══════════════════════════════════════════════════════════
-           SECTION 7: BEST SELLING PRODUCTS
-           ═══════════════════════════════════════════════════════════ -->
+           SECTION 7: BEST SELLING PRODUCTS (HIDDEN)
+           ═══════════════════════════════════════════════════════════
       <section class="py-10 xs:py-14 sm:py-16 lg:py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center max-w-xl xs:max-w-2xl sm:max-w-3xl mx-auto mb-6 xs:mb-8 sm:mb-10 lg:mb-14">
-            <span class="inline-block px-2.5 xs:px-3 py-0.5 xs:py-1 bg-saffron-500/10 text-saffron-500 text-[11px] xs:text-xs sm:text-sm font-semibold rounded-full mb-2 xs:mb-3 sm:mb-4">Best Sellers</span>
-            <h2 class="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-bold text-brown-700 font-heading">Most Loved Rudraksha Products</h2>
-            <p class="mt-1 xs:mt-2 sm:mt-3 lg:mt-4 text-xs xs:text-sm sm:text-base text-gray-600">Handpicked favorites trusted by thousands of devotees for their spiritual journeys.</p>
-          </div>
-          <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
-            @for (product of products; track product.name) {
-              <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 group">
-                <div class="relative h-40 sm:h-48 bg-gradient-to-br from-brown-50 to-brown-100 flex items-center justify-center overflow-hidden">
-                  <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gold-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <i class="fa fa-diamond text-gold-500 text-3xl sm:text-4xl" aria-hidden="true"></i>
-                  </div>
-                  @if (product.badge) {
-                    <span class="absolute top-2 left-2 sm:top-3 sm:left-3 px-2 py-0.5 text-[10px] sm:text-xs font-bold rounded-full"
-                          [class.bg-saffron-500]="product.badge === 'Best Seller'"
-                          [class.text-white]="product.badge === 'Best Seller'"
-                          [class.bg-green-500]="product.badge === 'New'"
-                          [class.text-white]="product.badge === 'New'"
-                          [class.bg-gold-500]="product.badge === 'Trending'"
-                          [class.text-brown-800]="product.badge === 'Trending'">
-                      {{ product.badge }}
-                    </span>
-                  }
-                </div>
-                <div class="p-3 sm:p-4">
-                  <div class="flex items-center gap-0.5 mb-1">
-                    @for (star of [1,2,3,4,5]; track star) {
-                      <i class="fa text-[10px] sm:text-xs"
-                         [class.fa-star]="star <= product.rating"
-                         [class.fa-star-o]="star > product.rating"
-                         [class.text-gold-500]="star <= product.rating"
-                         [class.text-gray-300]="star > product.rating"
-                         aria-hidden="true"></i>
-                    }
-                    <span class="text-[10px] sm:text-xs text-gray-400 ml-1">({{ product.reviews }})</span>
-                  </div>
-                  <h3 class="text-xs sm:text-sm font-bold text-brown-700 mb-1 line-clamp-2">{{ product.name }}</h3>
-                  <p class="text-[10px] sm:text-xs text-gray-500 mb-2 line-clamp-2">{{ product.desc }}</p>
-                  <div class="flex items-center gap-2 mb-2 sm:mb-3">
-                    <span class="text-sm sm:text-base font-bold text-saffron-500">{{ product.price }}</span>
-                    <span class="text-[10px] sm:text-xs text-gray-400 line-through">{{ product.oldPrice }}</span>
-                  </div>
-                  <a routerLink="/about" class="block w-full text-center py-1.5 sm:py-2 bg-brown-700 text-white text-[10px] sm:text-xs font-semibold rounded-lg hover:bg-saffron-500 transition-all">
-                    <i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i> Add to Cart
-                  </a>
-                </div>
-              </div>
-            }
-          </div>
-        </div>
+        ...
       </section>
+      -->
 
       <!-- ═══════════════════════════════════════════════════════════
            SECTION 8: CUSTOMER TESTIMONIALS
@@ -352,34 +303,12 @@ import { FormsModule } from '@angular/forms';
       </section>
 
       <!-- ═══════════════════════════════════════════════════════════
-           SECTION 10: BLOG SECTION
-           ═══════════════════════════════════════════════════════════ -->
+           SECTION 10: BLOG SECTION (HIDDEN)
+           ═══════════════════════════════════════════════════════════
       <section class="py-10 xs:py-14 sm:py-16 lg:py-24 bg-brown-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center max-w-xl xs:max-w-2xl sm:max-w-3xl mx-auto mb-6 xs:mb-8 sm:mb-10 lg:mb-14">
-            <span class="inline-block px-2.5 xs:px-3 py-0.5 xs:py-1 bg-saffron-500/10 text-saffron-500 text-[11px] xs:text-xs sm:text-sm font-semibold rounded-full mb-2 xs:mb-3 sm:mb-4">Spiritual Knowledge</span>
-            <h2 class="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-bold text-brown-700 font-heading">From Our Sacred Blog</h2>
-          </div>
-          <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
-            @for (post of blogPosts; track post.title) {
-              <article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all border border-gray-100 group">
-                <div class="h-36 sm:h-44 bg-gradient-to-br from-brown-600 to-brown-700 flex items-center justify-center relative overflow-hidden">
-                  <div class="absolute inset-0 bg-saffron-500/0 group-hover:bg-saffron-500/10 transition-all duration-300"></div>
-                  <i [class]="post.icon" class="text-gold-500/40 text-5xl sm:text-6xl group-hover:text-gold-500/60 transition-all" aria-hidden="true"></i>
-                </div>
-                <div class="p-4 sm:p-5">
-                  <span class="text-[10px] sm:text-xs text-saffron-500 font-semibold">{{ post.category }}</span>
-                  <h3 class="text-sm sm:text-base font-bold text-brown-700 mt-1 mb-2 group-hover:text-saffron-500 transition-colors line-clamp-2">{{ post.title }}</h3>
-                  <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-3 line-clamp-2">{{ post.excerpt }}</p>
-                  <a routerLink="/about" class="inline-flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-saffron-500 hover:text-saffron-600 transition-colors">
-                    Read More <i class="fa fa-arrow-right text-[10px]" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </article>
-            }
-          </div>
-        </div>
+        ...
       </section>
+      -->
 
       <!-- ═══════════════════════════════════════════════════════════
            SECTION 11: FAQ SECTION
