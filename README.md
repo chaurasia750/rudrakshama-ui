@@ -50,7 +50,8 @@ npx nx serve shell --port 4200
 npx nx serve admin --port 4101
 
 # Member Remote
-npx nx serve member --port 4102
+
+
 
 # Management Remote
 npx nx serve management --port 4103

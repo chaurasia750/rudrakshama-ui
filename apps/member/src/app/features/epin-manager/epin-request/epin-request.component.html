@@ -1,0 +1,322 @@
+<app-page-breadcrumb pageTitle="Request E-Pin" />
+
+@if (successMessage) {
+  <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+    {{ successMessage }}
+  </div>
+}
+
+<form #epinForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+    <div class="px-6 bg-cyan-500 py-5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+      <h4 class="text-base font-bold text-gray-800 dark:text-white/90">
+        <i class="fa fa-credit-card mr-2 text-brand-500"></i>e-Pin Details
+      </h4>
+    </div>
+    <div class="p-6">
+      @if (loading) {
+        <p class="text-gray-500">Loading kits...</p>
+      } @else if (errorMessage) {
+        <p class="text-red-500">{{ errorMessage }}</p>
+      } @else {
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="relative">
+            <select
+              [(ngModel)]="selectedKitId"
+              name="package"
+              (change)="onKitChange()"
+              #pkg="ngModel"
+              required
+              id="package"
+              placeholder=" "
+              [class]="pkg.invalid && pkg.touched
+                ? 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-red-400 bg-red-500/5 focus:border-red-400 focus:ring-red-400/20'
+                : 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 focus:border-brand-500 focus:ring-brand-500/20 bg-transparent'"
+            >
+              <option [ngValue]="null" disabled selected>Select kit</option>
+              @for (kit of kits; track kit.id) {
+                <option [value]="kit.id">{{ kit.kitCode }}</option>
+              }
+            </select>
+            <label for="package" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-focus:text-brand-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-4">Package <span class="text-red-500">*</span></label>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
+              <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </div>
+            @if (pkg.invalid && pkg.touched) {
+              <p class="mt-1 text-xs text-red-500">Package is required</p>
+            }
+            @if (selectedPrice !== null) {
+              <div class="mt-1 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                Price: {{ selectedPrice | currency:'INR' }}
+              </div>
+            }
+          </div>
+          <div class="relative">
+            <input
+              id="noOfEpin"
+              type="number"
+              [(ngModel)]="noOfEpin"
+              name="noOfEpin"
+              (input)="calculateAmount()"
+              min="1"
+              required
+              [disabled]="!selectedKitId"
+              #epinCount="ngModel"
+              placeholder=" "
+              [class]="epinCount.invalid && epinCount.touched
+                ? 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-red-400 bg-red-500/5 focus:border-red-400 focus:ring-red-400/20 disabled:opacity-50 disabled:cursor-not-allowed'
+                : 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 focus:border-brand-500 focus:ring-brand-500/20 bg-transparent disabled:opacity-50 disabled:cursor-not-allowed'"
+            />
+            <label for="noOfEpin" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-focus:text-brand-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-4">No. of Epin <span class="text-red-500">*</span></label>
+            @if (epinCount.invalid && epinCount.touched) {
+              <p class="mt-1 text-xs text-red-500">No. of Epin is required</p>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] mt-5">
+    <div class="px-6 py-5 bg-cyan-500 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+      <h4 class="text-base font-bold text-gray-800 dark:text-white/90">
+        <i class="fa fa-money mr-2 text-brand-500"></i>Payment Details
+      </h4>
+      @if (!isEpinStepComplete) {
+        <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-white/80 bg-white/20 rounded-full px-3 py-1">
+          <i class="fa fa-lock"></i> Complete e-Pin details first
+        </span>
+      }
+    </div>
+    <div class="p-6">
+      @if (!isEpinStepComplete) {
+        <div class="flex items-center gap-3 p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-700 text-sm">
+          <i class="fa fa-info-circle text-base"></i>
+          <span>Please select a <strong>Package</strong> and enter <strong>No. of E-Pins</strong> above to continue with payment.</span>
+        </div>
+      }
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" [class.pointer-events-none]="!isEpinStepComplete" [class.opacity-50]="!isEpinStepComplete">
+
+        <!-- Columns 1+2: Payment form fields -->
+        <div class="lg:col-span-2 space-y-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="relative">
+              <input
+                id="paymentDate"
+                type="date"
+                [(ngModel)]="paymentDate"
+                name="paymentDate"
+                #payDate="ngModel"
+                required
+                placeholder=" "
+                [disabled]="!isEpinStepComplete"
+                [class]="payDate.invalid && payDate.touched
+                  ? 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-red-400 bg-red-500/5 focus:border-red-400 focus:ring-red-400/20'
+                  : 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 focus:border-brand-500 focus:ring-brand-500/20 bg-transparent'"
+              />
+              <label for="paymentDate" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-focus:text-brand-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-4">Payment Date <span class="text-red-500">*</span></label>
+              @if (payDate.invalid && payDate.touched) {
+                <p class="mt-1 text-xs text-red-500">Payment date is required</p>
+              }
+            </div>
+            <div class="relative">
+              <select
+                [(ngModel)]="paymentMode"
+                name="paymentMode"
+                (ngModelChange)="onPaymentModeChange($event)"
+                #payMode="ngModel"
+                required
+                id="paymentMode"
+                placeholder=" "
+                [disabled]="!isEpinStepComplete"
+                [class]="payMode.invalid && payMode.touched
+                  ? 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-red-400 bg-red-500/5 focus:border-red-400 focus:ring-red-400/20'
+                  : 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 focus:border-brand-500 focus:ring-brand-500/20 bg-transparent'"
+              >
+                <option [ngValue]="''" disabled selected>Select Payment</option>
+                <option value="Account">Account</option>
+                <option value="UPI">UPI</option>
+                <option value="Card">Card</option>
+              </select>
+              <label for="paymentMode" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-focus:text-brand-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-4">Mode of Payment <span class="text-red-500">*</span></label>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
+                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+              </div>
+              @if (payMode.invalid && payMode.touched) {
+                <p class="mt-1 text-xs text-red-500">Mode of payment is required</p>
+              }
+            </div>
+          </div>
+          @if (paymentMode === 'Account' || paymentMode === 'UPI') {
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              @if (paymentTypeId === 2) {
+                <div class="relative">
+                  <input
+                    id="upiId"
+                    type="text"
+                    [value]="filteredBankAccounts[0]?.accountNo ?? ''"
+                    readonly
+                    class="peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 bg-gray-50 dark:bg-white/5"
+                  />
+                  <label for="upiId" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-focus:text-brand-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-4">UPI Id <span class="text-red-500">*</span></label>
+                </div>
+              } @else {
+                <div class="relative">
+                  <select
+                    [(ngModel)]="selectedBankAccNo"
+                    name="bankName"
+                    (ngModelChange)="onBankChange($event)"
+                    #bankName="ngModel"
+                    required
+                    id="bankName"
+                    placeholder=" "
+                    [disabled]="!isEpinStepComplete"
+                    [class]="bankName.invalid && bankName.touched
+                      ? 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-red-400 bg-red-500/5 focus:border-red-400 focus:ring-red-400/20'
+                      : 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 focus:border-brand-500 focus:ring-brand-500/20 bg-transparent'"
+                  >
+                    <option [ngValue]="null" disabled selected>Select bank</option>
+                    @for (bank of filteredBankAccounts; track bank.accountNo) {
+                      <option [value]="bank.accountNo">{{ bank.bankName }} - {{ maskAccountNo(bank.accountNo) }}</option>
+                    }
+                  </select>
+                  <label for="bankName" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-focus:text-brand-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-4">Bank Name <span class="text-red-500">*</span></label>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
+                    <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                  </div>
+                  @if (bankName.invalid && bankName.touched) {
+                    <p class="mt-1 text-xs text-red-500">Bank name is required</p>
+                  }
+                  @if (selectedBank) {
+                    <div class="mt-2 text-xs text-gray-600 dark:text-gray-400 flex flex-wrap gap-x-4 gap-y-0.5">
+                      @if (selectedBank.branchName) {
+                        <span>Branch: {{ selectedBank.branchName }}</span>
+                      }
+                      @if (getIfscCode(selectedBank)) {
+                        <span>IFSC: {{ getIfscCode(selectedBank) }}</span>
+                      }
+                      @if (selectedBank.address) {
+                        <span>Address: {{ selectedBank.address }}</span>
+                      }
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="relative">
+              <input
+                id="referenceType"
+                type="text"
+                [(ngModel)]="referenceType"
+                name="referenceType"
+                #refType="ngModel"
+                required
+                placeholder=" "
+                [disabled]="!isEpinStepComplete"
+                [class]="refType.invalid && refType.touched
+                  ? 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-red-400 bg-red-500/5 focus:border-red-400 focus:ring-red-400/20'
+                  : 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 focus:border-brand-500 focus:ring-brand-500/20 bg-transparent'"
+              />
+              <label for="referenceType" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-focus:text-brand-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-4">Reference Type <span class="text-red-500">*</span></label>
+              @if (refType.invalid && refType.touched) {
+                <p class="mt-1 text-xs text-red-500">Reference type is required</p>
+              }
+            </div>
+            <div class="relative">
+              <input
+                id="referenceId"
+                type="text"
+                [(ngModel)]="referenceId"
+                name="referenceId"
+                #refId="ngModel"
+                required
+                placeholder=" "
+                [disabled]="!isEpinStepComplete"
+                [class]="refId.invalid && refId.touched
+                  ? 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-red-400 bg-red-500/5 focus:border-red-400 focus:ring-red-400/20'
+                  : 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 focus:border-brand-500 focus:ring-brand-500/20 bg-transparent'"
+              />
+              <label for="referenceId" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-focus:text-brand-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-4">Reference Id <span class="text-red-500">*</span></label>
+              @if (refId.invalid && refId.touched) {
+                <p class="mt-1 text-xs text-red-500">Reference Id is required</p>
+              }
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="text-sm font-bold text-gray-700 dark:text-gray-400 mb-1 block">Receipt <span class="text-red-500">*</span></label>
+              <input
+                type="file"
+                (change)="onFileSelected($event)"
+                [disabled]="!isEpinStepComplete"
+                class="block w-full text-sm text-gray-800 border border-gray-300 rounded-xl cursor-pointer bg-transparent focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-brand-500 file:text-white hover:file:bg-brand-600 dark:text-white/90 dark:border-gray-700"
+              />
+            </div>
+            <div class="relative">
+              <textarea
+                id="remark"
+                [(ngModel)]="remark"
+                name="remark"
+                #remarkField="ngModel"
+                required
+                placeholder=" "
+                rows="2"
+                [disabled]="!isEpinStepComplete"
+                [class]="remarkField.invalid && remarkField.touched
+                  ? 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-red-400 bg-red-500/5 focus:border-red-400 focus:ring-red-400/20'
+                  : 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 focus:border-brand-500 focus:ring-brand-500/20 bg-transparent'"
+              ></textarea>
+              <label for="remark" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-focus:text-brand-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-4">Remark <span class="text-red-500">*</span></label>
+              @if (remarkField.invalid && remarkField.touched) {
+                <p class="mt-1 text-xs text-red-500">Remark is required</p>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: QR Code -->
+        <div class="lg:col-span-1 flex flex-col items-center gap-4 lg:border-l lg:pl-6 border-gray-100 dark:border-gray-800">
+          @if (amount > 0) {
+            <div class="w-full p-3 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
+              <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 block">Total Amount</span>
+              <span class="text-xl font-bold text-brand-600">{{ amount | currency:'INR' }}</span>
+            </div>
+          }
+          @if (paymentMode === 'UPI' && amount > 0) {
+            <ui-payment-qr
+              [upiId]="filteredBankAccounts[0]?.accountNo ?? ''"
+              [merchantName]="companyName"
+              [amount]="amount"
+              [transactionNote]="'EPin Request'"
+              [compact]="true"
+            />
+          } @else if (amount > 0) {
+            <div class="flex flex-col items-center justify-center py-6 text-center text-gray-400">
+              <i class="fa fa-qrcode text-3xl mb-2"></i>
+              <p class="text-xs font-medium">Select UPI mode to<br/>show QR code</p>
+            </div>
+          }
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-4 mt-6">
+    <button
+      type="submit"
+      [disabled]="epinForm.invalid || (paymentMode && !receiptFile)"
+      class="inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white bg-brand-500 rounded-lg hover:bg-brand-600 focus:outline-hidden focus:ring-3 focus:ring-brand-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <i class="fa fa-check mr-2"></i>Requested Epin
+    </button>
+    <button
+      type="button"
+      class="inline-flex items-center px-6 py-2.5 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-hidden focus:ring-3 focus:ring-gray-200 dark:bg-gray-900 dark:text-white/90 dark:border-gray-700 dark:hover:bg-gray-800"
+    >
+      <i class="fa fa-times mr-2"></i>Cancel
+    </button>
+  </div>
+</form>

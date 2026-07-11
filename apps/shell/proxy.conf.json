@@ -22,5 +22,11 @@
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
+  },
+  "/media": {
+    "target": "https://localhost:7056",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }

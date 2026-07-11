@@ -27,6 +27,8 @@ import { InboxComponent } from './features/message-center/inbox/inbox.component'
 import { ComposeMailComponent } from './features/message-center/compose-mail/compose-mail.component';
 import { SentMailComponent } from './features/message-center/sent-mail/sent-mail.component';
 import { ReferralLinkComponent } from './features/referral-link/referral-link.component';
+import { EpinRequestComponent } from './features/epin-manager/epin-request/epin-request.component';
+import { EpinRequestListComponent } from '@shared/members/src';
 import { ChangePasswordPageComponent } from './features/change-password/change-password-page.component';
 import { CalenderComponent } from './features/calender/calender.component';
 import { FormElementsComponent } from './features/forms/form-elements/form-elements.component';
@@ -61,6 +63,8 @@ const routes: Routes = [
       { path: 'project/list', component: MemberInventoryListPageComponent },
       { path: 'project/:id', component: MemberInventoryDetailsPageComponent },
       { path: 'referral-link', component: ReferralLinkComponent },
+      { path: 'epin/request', component: EpinRequestComponent },
+      { path: 'epin/list', component: EpinRequestListComponent },
       { path: 'change-password', component: ChangePasswordPageComponent },
       { path: 'calendar', component: CalenderComponent },
       { path: 'sponsor-new', component: SponsorNewComponent },

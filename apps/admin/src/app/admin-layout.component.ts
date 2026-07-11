@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AppLayoutConfig } from '@shared';
-import { DASHBOARD_ICON, INVENTORY_ICON, LEADS_ICON, MASTER_ICON, MEMBERS_ICON, TREE_ICON, USERS_ICON } from './menu-icons';
+import { DASHBOARD_ICON, INVENTORY_ICON, LEADS_ICON, MASTER_ICON, MEMBERS_ICON, TREE_ICON, USERS_ICON, EPIN_ICON } from './menu-icons';
 import { AuthService } from '@libs/shared/auth';
 
 @Component({
@@ -51,6 +51,9 @@ export class AdminLayoutComponent {
         { name: 'State', path: '/admin/master/state' },
         { name: 'District', path: '/admin/master/district' },
         { name: 'City', path: '/admin/master/city' },
+      ]},
+      { label: 'E-Pin Manager', section: 'MANAGEMENT', icon: EPIN_ICON, subItems: [
+        { name: 'Requested E-Pin List', path: '/admin/epin-manager/requested-list' },
       ]},
       { label: 'Users', route: '/admin/users', section: 'MANAGEMENT', icon: USERS_ICON },
     ],

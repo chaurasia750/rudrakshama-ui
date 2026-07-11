@@ -31,3 +31,4 @@ export * from './lib/shared-ui/models/genealogy-api.model';
 export * from './lib/shared-ui/services/genealogy-api.service';
 export * from './lib/shared-ui/components/genealogy-tree/genealogy-tree.component';
 export * from './lib/shared-ui/components/genealogy-search/genealogy-search.component';
+export * from './lib/shared-ui/components/payment-qr/payment-qr.component';

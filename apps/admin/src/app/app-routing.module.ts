@@ -56,6 +56,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'epin-manager',
+        loadChildren: () =>
+          import('./modules/epin-manager/epin-manager.module').then(
+            (m) => m.EpinManagerModule
+          ),
+      },
+      {
         path: 'sponsor-new',
         loadComponent: () =>
           import('./features/sponsor-new/sponsor-new.component').then(

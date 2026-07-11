@@ -2,7 +2,7 @@ import { inject, Injectable, InjectionToken } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { apiConfig } from '@shared/environments/api.dev';
-import { GetMembersRequest, MemberListResponse, MemberLoginDetails } from '../models/member-api.model';
+import { CompanyBankAccount, EPinRequestPayload, GetMembersRequest, KitListResponse, MemberListResponse, MemberLoginDetails, PaymentTransactionPayload } from '../models/member-api.model';
 
 export const MEMBERS_API_BASE_URL = new InjectionToken<string>('MEMBERS_API_BASE_URL', {
   factory: () => `${apiConfig.baseUrl}/members`,
@@ -95,5 +95,49 @@ export class MembersService implements IMembersService {
 
   registerMember(payload: RegisterMemberPayload): Observable<RegisterMemberResponse> {
     return this.http.post<RegisterMemberResponse>(`${this.rootApi}/members/registration`, payload);
+  }
+
+  getKits(): Observable<KitListResponse> {
+    const headers: Record<string, string> = {};
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    return this.http.get<KitListResponse>(`${this.baseUrl}/kits`, {
+      headers,
+      withCredentials: true,
+    });
+  }
+
+  getCompanyBankAccounts(): Observable<CompanyBankAccount[]> {
+    const headers: Record<string, string> = {};
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    return this.http.get<CompanyBankAccount[]>(`${this.rootApi}/master/company-bank-account`, {
+      headers,
+      withCredentials: true,
+    });
+  }
+
+  createEPinRequest(payload: EPinRequestPayload): Observable<unknown> {
+    return this.http.post(`${this.baseUrl}/epin-request`, payload, { withCredentials: true });
+  }
+
+  createPaymentTransaction(payload: PaymentTransactionPayload): Observable<unknown> {
+    return this.http.post(`${this.baseUrl}/payment-transactions`, payload, { withCredentials: true });
+  }
+
+  getEPinRequestList(): Observable<unknown> {
+    return this.http.get(`${this.baseUrl}/epin-request/requested-list`, { withCredentials: true });
+  }
+
+  getEPinPayment(id: number): Observable<unknown> {
+    return this.http.get(`${this.baseUrl}/epin-payment/${id}`, { withCredentials: true });
+  }
+
+  approveEPinRequest(id: number): Observable<unknown> {
+    return this.http.put(`${this.baseUrl}/epin-request/${id}/approve`, {}, { withCredentials: true });
   }
 }
