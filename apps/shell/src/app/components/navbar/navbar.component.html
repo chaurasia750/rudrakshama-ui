@@ -1,31 +1,31 @@
-<div class="top-bar bg-[#0A1628] text-white text-sm hidden lg:block">
+<div class="top-bar bg-brown-800 text-white text-sm hidden lg:block">
   <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-10">
     <div class="flex items-center gap-6">
-      <a href="tel:+911234567890" class="flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors text-xs">
-        <i class="fa fa-phone text-[#FFD000] text-sm" aria-hidden="true"></i>
-        +91 123 456 7890
+      <a href="tel:+919454799616" class="flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors text-xs">
+        <i class="fa fa-phone text-saffron-500 text-sm" aria-hidden="true"></i>
+        +91 94547 99616
       </a>
-      <a href="mailto:info@rudraksham.com" class="flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors text-xs">
-        <i class="fa fa-envelope text-[#FFD000] text-sm" aria-hidden="true"></i>
-        info@rudraksham.com
+      <a href="mailto:amitkumarpandey28075@gmail.com" class="flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors text-xs">
+        <i class="fa fa-envelope text-saffron-500 text-sm" aria-hidden="true"></i>
+        amitkumarpandey28075@gmail.com
       </a>
     </div>
     <div class="flex items-center gap-3">
-      <a href="#" class="text-gray-300 hover:text-white transition-colors text-sm" aria-label="Facebook">
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-colors text-sm" aria-label="Facebook">
         <i class="fa fa-facebook" aria-hidden="true"></i>
       </a>
-      <a href="#" class="text-gray-300 hover:text-white transition-colors text-sm" aria-label="Instagram">
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-colors text-sm" aria-label="Instagram">
         <i class="fa fa-instagram" aria-hidden="true"></i>
       </a>
-      <a href="#" class="text-gray-300 hover:text-white transition-colors text-sm" aria-label="YouTube">
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-colors text-sm" aria-label="YouTube">
         <i class="fa fa-youtube-play" aria-hidden="true"></i>
       </a>
-      <a href="#" class="text-gray-300 hover:text-white transition-colors text-sm" aria-label="WhatsApp">
+      <a href="https://wa.me/919454799616" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-colors text-sm" aria-label="WhatsApp">
         <i class="fa fa-whatsapp" aria-hidden="true"></i>
       </a>
       <span class="w-px h-3 bg-white/20 mx-1"></span>
       <a routerLink="/login" class="text-xs font-medium text-gray-300 hover:text-white transition-colors">Login</a>
-      <a routerLink="/signup" class="text-xs font-semibold bg-[#FFD000] text-[#0A1628] px-3 py-1 rounded hover:bg-[#FFD000]/90 transition-all">Register</a>
+      <a routerLink="/signup" class="text-xs font-semibold bg-saffron-500 text-white px-3 py-1 rounded hover:bg-saffron-600 transition-all">Register</a>
     </div>
   </div>
 </div>
@@ -34,17 +34,17 @@
   <div class="max-w-7xl mx-auto px-4">
     <div class="flex items-center justify-between h-16 lg:h-20">
       <a routerLink="/home" class="flex items-center gap-2">
-        <img src="/assets/logo.jpeg" alt="Rudraksham" class="h-14 w-auto" />
-        <span class="text-lg lg:text-xl font-bold text-[#0A1628]">Rudraksham</span>
+        <img src="/assets/logo.jpeg" alt="Rudrakshama" class="h-9 lg:h-10 w-auto" />
+        <span class="text-lg lg:text-xl font-bold text-brown-700 font-heading">Rudrakshama</span>
       </a>
 
       <ul class="hidden lg:flex items-center gap-1">
         @for (link of navLinks; track link.path) {
           <li>
             <a [routerLink]="link.path"
-               routerLinkActive="text-[#FFD000]"
+               routerLinkActive="text-saffron-500"
                [routerLinkActiveOptions]="{exact: true}"
-               class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-[#0A1628] hover:bg-[#FFD000] rounded-lg transition-all">
+               class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-brown-700 hover:bg-saffron-500/10 rounded-lg transition-all">
               {{ link.label }}
             </a>
           </li>
@@ -52,10 +52,12 @@
       </ul>
 
       <div class="hidden lg:flex items-center gap-3">
-        <a routerLink="/contact" class="px-5 py-2.5 bg-[#FFD000] text-[#0A1628] text-sm font-semibold rounded-lg hover:bg-[#FFD000]/80 transition-all shadow-sm">Contact Us</a>
+        <a routerLink="/signup" class="px-5 py-2.5 bg-saffron-500 text-white text-sm font-semibold rounded-lg hover:bg-saffron-600 transition-all shadow-sm shadow-saffron-500/25">
+          <i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i> Shop Now
+        </a>
       </div>
 
-      <button (click)="mobileOpen = !mobileOpen" class="lg:hidden p-2 text-gray-700 hover:text-[#FFD000]" aria-label="Menu">
+      <button (click)="mobileOpen = !mobileOpen" class="lg:hidden p-2 text-gray-700 hover:text-saffron-500" aria-label="Menu">
         @if (!mobileOpen) {
           <i class="fa fa-bars text-xl" aria-hidden="true"></i>
         } @else {
@@ -71,14 +73,14 @@
         @for (link of navLinks; track link.path) {
           <a [routerLink]="link.path"
              (click)="mobileOpen = false"
-             routerLinkActive="text-[#FFD000] bg-[#FFD000]/5"
-             class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-[#FFD000] hover:bg-[#FFD000]/5 rounded-lg transition-colors">
+             routerLinkActive="text-saffron-500 bg-saffron-500/5"
+             class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-saffron-500 hover:bg-saffron-500/5 rounded-lg transition-colors">
             {{ link.label }}
           </a>
         }
         <hr class="my-3 border-gray-100">
-        <a routerLink="/login" (click)="mobileOpen = false" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-[#FFD000] rounded-lg">Login</a>
-        <a routerLink="/signup" (click)="mobileOpen = false" class="block px-4 py-2.5 text-sm font-semibold text-center bg-[#FFD000] text-[#0A1628] rounded-lg">Register</a>
+        <a routerLink="/login" (click)="mobileOpen = false" class="block px-4 py-2.5 text-sm font-medium text-gray-700 hover:text-saffron-500 rounded-lg">Login</a>
+        <a routerLink="/signup" (click)="mobileOpen = false" class="block px-4 py-2.5 text-sm font-semibold text-center bg-saffron-500 text-white rounded-lg">Register</a>
       </div>
     </div>
   }

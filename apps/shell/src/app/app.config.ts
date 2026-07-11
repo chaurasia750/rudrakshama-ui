@@ -13,6 +13,7 @@ import { UnauthorizedComponent } from './features/error/pages/unauthorized/unaut
 import { HomeComponent } from './features/home/pages/home/home.component';
 import { AboutComponent } from './features/about/pages/about/about.component';
 import { ContactComponent } from './features/contact/pages/contact/contact.component';
+import { ShopComponent } from './features/shop/pages/shop/shop.component';
 import { authGuard } from './core/guards/auth.guard';
 import { AUTH_COOKIE_CONFIG, AuthInterceptor, RoleId, provideAuthInitializer } from '@libs/shared/auth';
 import { AUTH_API_BASE_URL } from '@libs/shared/auth/lib/auth-api.service';
@@ -34,12 +35,17 @@ export const appRoutes: Route[] = [
   {
     path: 'about',
     component: AboutComponent,
-    data: { title: 'About' }
+    data: { title: 'About', showNavbar: true }
   },
   {
     path: 'contact',
     component: ContactComponent,
-    data: { title: 'Contact Us' }
+    data: { title: 'Contact Us', showNavbar: true }
+  },
+  {
+    path: 'shop',
+    component: ShopComponent,
+    data: { title: 'Shop', showNavbar: true }
   },
   // Public login route
   {

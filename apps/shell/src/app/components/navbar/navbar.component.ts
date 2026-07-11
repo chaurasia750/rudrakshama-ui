@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './navbar.component.html',
   styles: [`
     :host { display: block; }
+    .font-heading { font-family: 'Red Hat Display', serif; }
   `]
 })
 export class NavbarComponent {
