@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Anon India",
+    "title": "RUDRAKSHAMA",
     "sponsorPrefix": "ANON"
   },
   "signup": {
@@ -37,7 +37,8 @@
       "phone": "Mobile Number",
       "aadhaar": "Aadhaar Number",
       "pan": "PAN Card",
-      "address": "Address Details"
+      "address": "Address Details",
+      "password": "Password"
     },
     "position": {
       "placeholder": "Select",
@@ -57,7 +58,8 @@
       "pan": "PAN format must be ABCDE1234F.",
       "sponsorIdLength": "Sponsor ID must be exactly 6 characters.",
       "position": "Please select a position.",
-      "invalid": "Invalid input."
+      "invalid": "Invalid input.",
+      "passwordMinLength": "Password must be at least 8 characters."
     },
     "submit": {
       "idle": "Create Account",

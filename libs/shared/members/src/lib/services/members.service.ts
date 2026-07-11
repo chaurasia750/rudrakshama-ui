@@ -53,6 +53,7 @@ export interface RegisterMemberPayload {
     distId: number;
   };
   introSide: string;
+  password?: string;
 }
 
 @Injectable({ providedIn: 'root' })
