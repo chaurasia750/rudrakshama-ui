@@ -41,8 +41,7 @@ import { RouterModule } from '@angular/router';
             <ul class="space-y-2.5">
               <li><a routerLink="/home" class="text-sm text-gray-400 hover:text-saffron-500 transition-colors">Home</a></li>
               <li><a routerLink="/about" class="text-sm text-gray-400 hover:text-saffron-500 transition-colors">About Us</a></li>
-              <li><a routerLink="/shop" class="text-sm text-gray-400 hover:text-saffron-500 transition-colors">Shop</a></li>
-              <li><a routerLink="/about" class="text-sm text-gray-400 hover:text-saffron-500 transition-colors">Blog</a></li>
+
               <li><a routerLink="/contact" class="text-sm text-gray-400 hover:text-saffron-500 transition-colors">Contact Us</a></li>
             </ul>
           </div>
