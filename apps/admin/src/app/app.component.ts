@@ -11,7 +11,7 @@ import { SharedTranslationService } from '@shared';
 export class AppComponent implements OnInit {
   readonly layoutConfig: AppLayoutConfig = {
     appName: 'Admin Portal',
-    brandName: 'Anon India',
+    brandName: 'Rudrakshama',
     appSubtitle: 'Administration Console',
 
     user: {

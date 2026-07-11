@@ -11,7 +11,7 @@ import { AuthService } from '@libs/shared/auth';
 export class AdminLayoutComponent {
   readonly layoutConfig: AppLayoutConfig = {
     appName: 'Admin Portal',
-    brandName: 'Anon India',
+    brandName: 'Rudrakshama',
     appSubtitle: 'Administration Console',
     profileRoute: '/admin/change-password',
     changePasswordRoute: '/admin/change-password',
@@ -19,7 +19,7 @@ export class AdminLayoutComponent {
     user: {
       name: 'Admin User',
       role: 'Administrator',
-      loginId: 'admin@anonindia.com',
+      loginId: 'admin@rudrakshama.com',
     },
     notifications: [
       { id: 1, title: 'New member registration pending approval', time: '5m ago', read: false },
@@ -28,15 +28,14 @@ export class AdminLayoutComponent {
     ],
     menu: [
       { label: 'Dashboard', route: '/admin/dashboard', section: 'MAIN', icon: DASHBOARD_ICON },
-      { label: 'Inventory', section: 'MAIN', icon: INVENTORY_ICON, subItems: [
-        { name: 'All Inventory', path: '/admin/inventory/list' },
-        { name: 'Add Inventory', path: '/admin/inventory/add-inventory' },
-      ]},
-      { label: 'Leads', section: 'MAIN', icon: LEADS_ICON, subItems: [
-        { name: 'Dashboard', path: '/admin/leads' },
-        { name: 'List', path: '/admin/leads/list' },
-        { name: 'Add Lead', path: '/admin/leads/add' },
-      ]},
+      // { label: 'Inventory', section: 'MAIN', icon: INVENTORY_ICON, subItems: [
+      //   { name: 'All Inventory', path: '/admin/inventory/list' },
+      //   { name: 'Add Inventory', path: '/admin/inventory/add-inventory' },
+      // ]},
+      // { label: 'Leads', section: 'MAIN', icon: LEADS_ICON, subItems: [
+      //   { name: 'Dashboard', path: '/admin/leads' },
+      //   { name: 'Add Lead', path: '/admin/leads/add' },
+      // ]},
       { label: 'Network Manager', section: 'NETWORK', icon: TREE_ICON, subItems: [
         { name: 'Genealogy', path: '/admin/tree/genealogy' },
         // { name: 'Matching Tree', path: '/admin/tree/matching-tree' },

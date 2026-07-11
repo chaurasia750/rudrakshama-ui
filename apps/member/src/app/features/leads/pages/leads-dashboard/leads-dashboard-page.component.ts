@@ -12,7 +12,7 @@ export class MemberLeadsDashboardPageComponent {
   constructor(private readonly router: Router) {}
 
   onViewList(): void {
-    this.router.navigate(['/member/customers-list']);
+    this.router.navigate(['/member/customers-dashboard']);
   }
 
   onAddLead(): void {

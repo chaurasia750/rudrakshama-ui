@@ -57,7 +57,6 @@ export class SponsorRegistrationComponent {
     aadhaarNo: [''],
     panCard: [''],
     sponsorId: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
     address: this.fb.group({
       addressLine1: ['', [Validators.required]],
       addressLine2: [''],
@@ -68,44 +67,8 @@ export class SponsorRegistrationComponent {
     }),
   });
 
-  passwordStrength = 0;
-  showPassword = false;
-
   constructor() {
     this.setupSponsorValidation();
-    this.setupPasswordStrength();
-  }
-
-  private setupPasswordStrength(): void {
-    this.signupForm.get('password')?.valueChanges.subscribe((password: string | null) => {
-      this.calculatePasswordStrength(password || '');
-    });
-  }
-
-  calculatePasswordStrength(password: string): void {
-    let strength = 0;
-    if (password.length >= 8) strength++;
-    if (password.length >= 12) strength++;
-    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-    if (/\d/.test(password)) strength++;
-    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
-    this.passwordStrength = strength;
-  }
-
-  getPasswordStrengthLabel(): string {
-    if (this.passwordStrength <= 1) return 'Weak';
-    if (this.passwordStrength <= 2) return 'Fair';
-    if (this.passwordStrength <= 3) return 'Good';
-    if (this.passwordStrength <= 4) return 'Strong';
-    return 'Very Strong';
-  }
-
-  getPasswordStrengthColor(): string {
-    if (this.passwordStrength <= 1) return 'bg-red-500';
-    if (this.passwordStrength <= 2) return 'bg-orange-500';
-    if (this.passwordStrength <= 3) return 'bg-yellow-500';
-    if (this.passwordStrength <= 4) return 'bg-green-500';
-    return 'bg-emerald-500';
   }
 
   ngOnInit() {
@@ -167,7 +130,6 @@ export class SponsorRegistrationComponent {
     if (control.errors['invalidSponsor']) return 'Sponsor ID was not found.';
     if (control.errors['minlength'] || control.errors['maxlength'])
       return 'Sponsor ID must be exactly 6 characters.';
-    if (controlName === 'password' && control.errors['minlength']) return 'Password must be at least 8 characters.';
     return 'Invalid input.';
   }
 
@@ -294,7 +256,6 @@ export class SponsorRegistrationComponent {
         distId: 0,
       },
       introSide: 'L',
-      password: formValue.password ?? '',
     };
 
     this.membersService.registerMember(payload).subscribe({

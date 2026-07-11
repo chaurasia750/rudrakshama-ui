@@ -12,7 +12,7 @@ export class AdminLeadsPageComponent {
   constructor(private readonly router: Router) {}
 
   onViewList(): void {
-    this.router.navigate(['/admin/leads/list']);
+    this.router.navigate(['/admin/leads']);
   }
 
   onAddLead(): void {

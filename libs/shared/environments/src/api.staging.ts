@@ -1,8 +1,8 @@
 export const apiConfig = {
-  baseUrl: 'https://api.anonindia.org',
+  baseUrl: 'https://api.rudrakshama.org',
   authCookies: {
-    accessToken: 'ANON_qa_accessToken',
-    refreshToken: 'ANON_qa_refreshToken',
-    legacyRefreshToken: 'ANON_qa_binsera_refresh_token',
+    accessToken: 'RUDRAKSHAMA_qa_accessToken',
+    refreshToken: 'RUDRAKSHAMA_qa_refreshToken',
+    legacyRefreshToken: 'RUDRAKSHAMA_qa_binsera_refresh_token',
   },
 } as const;

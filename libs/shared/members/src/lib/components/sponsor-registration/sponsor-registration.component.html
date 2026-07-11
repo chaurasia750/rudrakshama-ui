@@ -208,68 +208,6 @@
           </div>
         </div>
 
-        <div>
-          <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <svg class="h-4 w-4 text-primary-fg/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-              </svg>
-            </div>
-            <input
-              id="password"
-              [type]="showPassword ? 'text' : 'password'"
-              formControlName="password"
-              placeholder=" "
-              class="peer block w-full appearance-none rounded-xl border pl-10 pr-10 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2"
-              [ngClass]="isInvalid('password') ? 'border-red-500 bg-red-500/5 focus:border-red-500 focus:ring-red-500/20' : 'border-default bg-surface focus:border-[#FFD000] focus:ring-[#FFD000]/20'"
-            />
-            <label for="password" class="pointer-events-none absolute left-10 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-primary-fg">
-              Password <span class="text-red-400">*</span>
-            </label>
-            <button
-              type="button"
-              (click)="showPassword = !showPassword"
-              class="absolute inset-y-0 right-0 pr-4 flex items-center text-primary-fg/50 hover:text-primary-fg transition-colors"
-            >
-              @if (!showPassword) {
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm3.5-5c0 1.93-1.57 3.5-3.5 3.5S8 13.93 8 12s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5z"/>
-                  <line x1="3" y1="21" x2="21" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              } @else {
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm3.5-5c0 1.93-1.57 3.5-3.5 3.5S8 13.93 8 12s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5z"/>
-                </svg>
-              }
-            </button>
-          </div>
-          @if (isInvalid('password')) {
-            <p class="mt-1.5 flex items-center gap-1 text-xs text-red-400"><svg class="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>{{ getError('password') }}</p>
-          }
-          @if (signupForm.get('password')?.value) {
-            <div class="mt-2">
-              <div class="flex items-center justify-between mb-1">
-                <span class="text-xs text-primary-fg/60">Password Strength</span>
-                <span class="text-xs font-medium" [ngClass]="{
-                  'text-red-400': passwordStrength <= 1,
-                  'text-orange-400': passwordStrength === 2,
-                  'text-yellow-400': passwordStrength === 3,
-                  'text-green-400': passwordStrength === 4,
-                  'text-emerald-400': passwordStrength >= 5
-                }">{{ getPasswordStrengthLabel() }}</span>
-              </div>
-              <div class="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                <div class="h-full transition-all duration-300" [ngClass]="getPasswordStrengthColor()" [style.width.%]="(passwordStrength / 5) * 100"></div>
-              </div>
-              <div class="mt-1.5 grid grid-cols-5 gap-1">
-                @for (i of [1,2,3,4,5]; track i) {
-                  <div class="h-0.5 rounded-full transition-colors duration-300" [ngClass]="passwordStrength >= i ? getPasswordStrengthColor() : 'bg-gray-200'"></div>
-                }
-              </div>
-            </div>
-          }
-        </div>
-
         
 
         <div class="flex items-center gap-3 py-1">
