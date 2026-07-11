@@ -1,5 +1,5 @@
 export const apiConfig = {
-  baseUrl: 'https://aroneapi.bankatm.in',
+  baseUrl: 'https://api.rudrakshama.com',
   authCookies: {
     accessToken: 'RUDRAKSHAMA_prod_accessToken',
     refreshToken: 'RUDRAKSHAMA_prod_refreshToken',

@@ -1,5 +1,5 @@
 export const apiConfig = {
-  baseUrl: 'https://api.rudrakshama.org',
+  baseUrl: 'https://api.rudrakshama.com',
   authCookies: {
     accessToken: 'RUDRAKSHAMA_qa_accessToken',
     refreshToken: 'RUDRAKSHAMA_qa_refreshToken',

@@ -3,7 +3,7 @@ import { RemoteConfig } from '@shared/types';
 export const remoteConfig: RemoteConfig[] = [
   {
     key: 'admin',
-    entry: 'https://app.rudrakshama.org/remoteEntry.mjs',
+    entry: 'https://rudrakshama.com/admin/remoteEntry.mjs',
     exposedModule: './Module',
     route: '/admin',
     displayName: 'Admin Portal',
@@ -16,7 +16,7 @@ export const remoteConfig: RemoteConfig[] = [
   },
   {
     key: 'member',
-    entry: 'https://member.rudrakshama.org/remoteEntry.mjs',
+    entry: 'https://rudrakshama.com/member/remoteEntry.mjs',
     exposedModule: './Module',
     route: '/member',
     displayName: 'Member Portal',
@@ -29,7 +29,7 @@ export const remoteConfig: RemoteConfig[] = [
   },
   {
     key: 'management',
-    entry: 'https://management.rudrakshama.org/remoteEntry.mjs',
+    entry: 'https://rudrakshama.com/management/remoteEntry.mjs',
     exposedModule: './Module',
     route: '/management',
     displayName: 'Management Dashboard',
