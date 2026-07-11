@@ -9,6 +9,8 @@
     "nx": "nx",
     "start": "nx serve shell",
     "build": "nx build shell",
+    "build:stage": "nx run-many --target=build --projects=shell,admin,member --configuration=staging --skip-nx-cache",
+    "deploy:stage": "node scripts/deploy-stage.js",
     "lint": "nx run-many --target=lint --all",
     "test": "nx run-many --target=test --all",
     "e2e": "nx run-many --target=e2e --all",

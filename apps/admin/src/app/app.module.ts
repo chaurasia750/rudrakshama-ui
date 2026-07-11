@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, NgModule, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { SharedLayoutModule } from '@shared';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -33,6 +33,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
   ],
   providers: [
+    provideHttpClient(withInterceptorsFromDi()),
     {
       provide: APP_INITIALIZER,
       useFactory: () => {
