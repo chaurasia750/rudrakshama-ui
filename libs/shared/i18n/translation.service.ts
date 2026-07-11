@@ -39,7 +39,7 @@ export class SharedTranslationService {
     return normalized;
   }
 
-  setDocumentTitle(title: Title, key = 'app.title', fallbackTitle = 'Anon India'): void {
+  setDocumentTitle(title: Title, key = 'app.title', fallbackTitle = 'RUDRAKSHAMA'): void {
     title.setTitle(fallbackTitle);
 
     this.init('en')

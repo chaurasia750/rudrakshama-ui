@@ -1,27 +1,27 @@
 {
   "app": {
-    "title": "Anon India",
+    "title": "RUDRAKSHAMA",
     "sponsorPrefix": "ANON"
   },
   "signup": {
     "hero": {
-      "badge": "Power of Rudraksh",
-      "title": "Embrace the Divine Power of Rudraksh",
-      "description": "Experience the sacred energy of authentic Rudraksha beads, crafted to inspire peace, protection, and spiritual growth in every step of your journey.",
+      "badge": "Sacred Collection",
+      "title": "Begin Your Sacred Journey with Rudrakshama",
+      "description": "Discover genuine Nepali & Indonesian Rudraksha beads, malas, and spiritual products — lab-certified and trusted by over 50,000 devotees across India.",
       "benefits": {
-        "earningsTitle": "Awaken Your Inner Strength",
-        "earningsDescription": "Rooted in Devotion. Guided by Divinity.",
-        "kycTitle": "Sacred Beads. Eternal Blessings.",
-        "kycDescription": "The Power of Rudraksha, The Path to Peace",
-        "supportTitle": "Inspired by Lord Shiva. Blessed by Rudraksha.",
-        "supportDescription": "The Bead of Faith, Strength & Serenity.",
-        "dashboardTitle": "Walk the Path of Divine Consciousness",
-        "dashboardDescription": "Embrace the timeless blessings of Rudraksha and awaken your mind, body, and soul through the sacred energy of nature"
+        "earningsTitle": "Lab-Certified Authenticity",
+        "earningsDescription": "Every bead comes with a certificate of genuineness.",
+        "kycTitle": "Free Shipping Across India",
+        "kycDescription": "Fast, secure delivery to your doorstep in 3-5 days.",
+        "supportTitle": "Expert Spiritual Guidance",
+        "supportDescription": "Our advisors help you choose the right Rudraksha.",
+        "dashboardTitle": "100% Genuine Products",
+        "dashboardDescription": "Handpicked and rigorously tested for natural energy and divine potency."
       },
       "footer": {
-        "dpdp": "DPDP Compliant",
-        "iso": "ISO 27001",
-        "ssl": "256-bit SSL"
+        "dpdp": "Genuine Products",
+        "iso": "Lab Certified",
+        "ssl": "Secure Payments"
       }
     },
     "header": {
@@ -37,7 +37,8 @@
       "phone": "Mobile Number",
       "aadhaar": "Aadhaar Number",
       "pan": "PAN Card",
-      "address": "Address Details"
+      "address": "Address Details",
+      "password": "Password"
     },
     "position": {
       "placeholder": "Select",
@@ -57,7 +58,8 @@
       "pan": "PAN format must be ABCDE1234F.",
       "sponsorIdLength": "Sponsor ID must be exactly 6 characters.",
       "position": "Please select a position.",
-      "invalid": "Invalid input."
+      "invalid": "Invalid input.",
+      "passwordMinLength": "Password must be at least 8 characters."
     },
     "submit": {
       "idle": "Create Account",
@@ -69,7 +71,7 @@
     },
     "success": {
       "title": "Registration Submitted Successfully",
-      "welcome": "Welcome to Anon India!",
+      "welcome": "Welcome to Rudrakshama!",
       "subtitle": "Your membership application has been received successfully.",
       "membershipId": "Membership ID",
       "verificationTitle": "Verification Pending",
@@ -77,31 +79,31 @@
       "assistanceTitle": "Need Assistance?",
       "assistanceDesc": "For onboarding guidance and further information, please connect with your sponsor or contact the administration team.",
       "safeMsg": "Please keep your Membership ID safe for future reference and communication.",
-      "thankYou": "Thank you for joining Anon India. We look forward to welcoming you as an approved member."
+      "thankYou": "Thank you for joining Rudrakshama. We look forward to welcoming you as an approved member."
     }
   },
   "login": {
     "hero": {
-      "badge": "Partner Portal",
-      "title": "Welcome to ANON INDIA Partner Portal",
-      "description": "Sign in to manage your real estate, construction, and interior decor projects, leads, and commissions.",
+      "badge": "Rudrakshama Portal",
+      "title": "Welcome to Rudrakshama",
+      "description": "Sign in to explore our sacred collection of genuine Rudraksha beads, malas, bracelets, and spiritual products — all lab-certified.",
       "features": {
-        "earningsTitle": "Project-Based Earnings",
-        "earningsDescription": "Track commissions from real estate deals, construction projects, and interior assignments.",
-        "securityTitle": "Secure & KYC-Verified",
-        "securityDescription": "Aadhaar & PAN verified access — fully compliant with DPDP Act.",
-        "supportTitle": "24/7 Partner Support",
-        "supportDescription": "Dedicated support for your projects, leads, and payout queries."
+        "earningsTitle": "100% Genuine Rudraksha",
+        "earningsDescription": "Lab-tested beads with certificate of authenticity.",
+        "securityTitle": "Secure & Trusted Store",
+        "securityDescription": "256-bit SSL encrypted payments — your data is always safe.",
+        "supportTitle": "Expert Spiritual Guidance",
+        "supportDescription": "Dedicated advisors to help you choose the right Rudraksha."
       },
       "footer": {
-        "dpdp": "DPDP Compliant",
-        "iso": "ISO 27001",
-        "ssl": "256-bit SSL"
+        "dpdp": "Genuine Products",
+        "iso": "Lab Certified",
+        "ssl": "Secure Payments"
       }
     },
     "header": {
       "title": "Welcome Back",
-      "subtitle": "Sign in to your ANON INDIA partner account"
+      "subtitle": "Sign in to your Rudrakshama account"
     },
     "fields": {
       "userId": "User ID",
@@ -115,8 +117,8 @@
     },
     "security": "SSL Encrypted · Your data is safe",
     "signup": {
-      "prompt": "New partner?",
-      "link": "Register here"
+      "prompt": "New to Rudrakshama?",
+      "link": "Create an account"
     }
   }
 }

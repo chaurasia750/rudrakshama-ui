@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { roleRouteMap } from '@libs/shared/auth';
 import { TranslateModule } from '@ngx-translate/core';
+import { EnquiriesService } from '../../../../services/enquiries.service';
 
 /**
  * LoginComponent - Main login page component
@@ -21,9 +22,13 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup;
+  forgotPasswordForm!: FormGroup;
   isLoading = false;
-  errorMessage = '';
   showPassword = false;
+  showForgotPasswordModal = false;
+  forgotPasswordSubmitted = false;
+  forgotPasswordLoading = false;
+  errorMessage = '';
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -32,10 +37,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authStore: AuthStore,
     private router: Router,
     private route: ActivatedRoute,
+    private enquiriesService: EnquiriesService,
   ) {}
 
   ngOnInit(): void {
     this.initializeForm();
+    this.initializeForgotPasswordForm();
     this.setupFormValueChanges();
 
     const loggedOut = this.route.snapshot.queryParamMap.get('loggedOut') === '1';
@@ -71,6 +78,15 @@ export class LoginComponent implements OnInit, OnDestroy {
       userName: ['', [Validators.required]],
       password: ['', [Validators.required]],
       keepMeSignedIn: [false]
+    });
+  }
+
+  /**
+   * Initialize forgot password form
+   */
+  private initializeForgotPasswordForm(): void {
+    this.forgotPasswordForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -174,5 +190,52 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
     togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
+  }
+
+  /**
+   * Open forgot password modal
+   */
+  openForgotPasswordModal() {
+    this.showForgotPasswordModal = true;
+    this.forgotPasswordSubmitted = false;
+    this.forgotPasswordForm.reset();
+  }
+
+  /**
+   * Close forgot password modal
+   */
+  closeForgotPasswordModal() {
+    this.showForgotPasswordModal = false;
+    this.forgotPasswordSubmitted = false;
+  }
+
+  /**
+   * Submit forgot password request
+   */
+  onSubmitForgotPassword() {
+    if (this.forgotPasswordForm.invalid) {
+      this.forgotPasswordForm.markAllAsTouched();
+      return;
+    }
+
+    this.forgotPasswordLoading = true;
+    const { email } = this.forgotPasswordForm.getRawValue();
+
+    this.enquiriesService.submitEnquiry({
+      name: 'Password Reset Request',
+      phone: '',
+      email: email,
+      message: `Password reset requested for email: ${email}`
+    }).pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.forgotPasswordLoading = false;
+          this.forgotPasswordSubmitted = true;
+        },
+        error: () => {
+          this.forgotPasswordLoading = false;
+          this.forgotPasswordSubmitted = true;
+        }
+      });
   }
 }

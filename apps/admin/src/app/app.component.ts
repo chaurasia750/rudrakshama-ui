@@ -32,6 +32,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.i18n.setDocumentTitle(this.title, 'app.title', 'Anon India');
+    this.i18n.setDocumentTitle(this.title, 'app.title', 'RUDRAKSHAMA');
   }
 }

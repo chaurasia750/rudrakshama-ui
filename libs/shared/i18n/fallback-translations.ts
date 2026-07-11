@@ -2,7 +2,7 @@ export const FALLBACK_EN: Record<string, any> = {
   signup: {
     hero: {
       badge: 'Partner Portal',
-      title: 'Welcome to ANON INDIA Partner Portal',
+      title: 'Welcome to RUDRAKSHAMA',
       description: 'Sign in to manage your real estate, construction, and interior decor projects, leads, and commissions.',
     },
     form: {
@@ -12,7 +12,7 @@ export const FALLBACK_EN: Record<string, any> = {
     },
     success: {
       title: 'Registration Submitted Successfully',
-      welcome: 'Welcome to Anon India!',
+      welcome: 'Welcome to RUDRAKSHAMA!',
       subtitle: 'Your membership application has been received successfully.',
       membershipId: 'Membership ID',
       verificationTitle: 'Verification Pending',
@@ -20,13 +20,13 @@ export const FALLBACK_EN: Record<string, any> = {
       assistanceTitle: 'Need Assistance?',
       assistanceDesc: 'For onboarding guidance and further information, please connect with your sponsor or contact the administration team.',
       safeMsg: 'Please keep your Membership ID safe for future reference and communication.',
-      thankYou: 'Thank you for joining Anon India. We look forward to welcoming you as an approved member.',
+      thankYou: 'Thank you for joining RUDRAKSHAMA. We look forward to welcoming you as an approved member.',
     },
   },
   login: {
     hero: {
       badge: 'Partner Portal',
-      title: 'Welcome to ANON INDIA Partner Portal',
+      title: 'Welcome to RUDRAKSHAMA',
       description: 'Sign in to manage your real estate, construction, and interior decor projects, leads, and commissions.',
     },
     form: {
@@ -75,6 +75,6 @@ export const FALLBACK_EN: Record<string, any> = {
     },
   },
   app: {
-    title: 'Anon India',
+    title: 'RUDRAKSHAMA',
   },
 };
