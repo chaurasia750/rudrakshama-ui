@@ -94,6 +94,7 @@ export const appRoutes: Route[] = [
         ]);
 
         const w = window as any;
+        w.__MFE_SHELL_HOST__ = true;
         w.__webpack_share_scopes__ = w.__webpack_share_scopes__ || { default: {} };
         const shareScope = w.__webpack_share_scopes__.default;
 
@@ -174,6 +175,7 @@ export const appRoutes: Route[] = [
         ]);
 
         const w = window as any;
+        w.__MFE_SHELL_HOST__ = true;
         w.__webpack_share_scopes__ = w.__webpack_share_scopes__ || { default: {} };
         const shareScope = w.__webpack_share_scopes__.default;
 
