@@ -2,7 +2,6 @@ import { Component, OnInit, inject, ChangeDetectorRef, ViewChild } from '@angula
 import { NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ComponentCardComponent } from '../../../shared/components/common/component-card/component-card.component';
 import { PageBreadcrumbComponent } from '../../../shared/components/common/page-breadcrumb/page-breadcrumb.component';
 import { PaymentQrComponent } from '@shared';
 import { MembersService, Kit, CompanyBankAccount } from '@shared/members/src';
@@ -11,7 +10,7 @@ import { MemberProfileService } from '../../../shared/services/member-profile.se
 
 @Component({
   selector: 'app-epin-request',
-  imports: [CommonModule, FormsModule, ComponentCardComponent, PageBreadcrumbComponent, PaymentQrComponent],
+  imports: [CommonModule, FormsModule, PageBreadcrumbComponent, PaymentQrComponent],
   templateUrl: './epin-request.component.html',
 })
 export class EpinRequestComponent implements OnInit {
