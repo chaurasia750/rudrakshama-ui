@@ -70,11 +70,11 @@ export class AppSidebarComponent {
     },
     {
       icon: `<svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 3.25C4.65279 3.25 2.75 5.15279 2.75 7.5V16.5C2.75 18.8472 4.65279 20.75 7 20.75H17C19.3472 20.75 21.25 18.8472 21.25 16.5V7.5C21.25 5.15279 19.3472 3.25 17 3.25H7ZM4.25 7.5C4.25 5.98122 5.48122 4.75 7 4.75H17C18.5188 4.75 19.75 5.98122 19.75 7.5V9.75H4.25V7.5ZM4.25 11.25V16.5C4.25 18.0188 5.48122 19.25 7 19.25H17C18.5188 19.25 19.75 18.0188 19.75 16.5V11.25H4.25ZM8 13.75C7.58579 13.75 7.25 14.0858 7.25 14.5C7.25 14.9142 7.58579 15.25 8 15.25H13C13.4142 15.25 13.75 14.9142 13.75 14.5C13.75 14.0858 13.4142 13.75 13 13.75H8Z" fill="currentColor"/></svg>`,
-      name: "E-Pin Manager",
+      name: "Orders",
       section: "MAIN",
       subItems: [
-        { name: "Request e-pin", path: "/member/epin/request" },
-        { name: "Requested e-pin List", path: "/member/epin/list" },
+        { name: "New Order", path: "/member/orders/new" },
+        { name: "Order List", path: "/member/orders/list" },
       ],
     },
     // {
