@@ -126,7 +126,7 @@ import * as QRCode from 'qrcode';
       font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
     }
     .pqr-card--sm {
-      max-width: 220px;
+      max-width: 280px;
       border-radius: 0.75rem;
     }
 
@@ -205,7 +205,7 @@ import * as QRCode from 'qrcode';
       width: 250px; height: 250px;
       border-radius: .625rem; border: 1px solid #f3f4f6; object-fit: contain;
     }
-    .pqr-img--sm { width: 150px; height: 150px; border-radius: .5rem; }
+    .pqr-img--sm { width: 200px; height: 200px; border-radius: .5rem; }
 
     /* ═══════════════════════════════════════════
        Info section (full mode only)
@@ -253,9 +253,9 @@ import * as QRCode from 'qrcode';
        ═══════════════════════════════════════════ */
     @media (max-width: 400px) {
       .pqr-card { max-width: 100%; border-radius: .75rem; }
-      .pqr-card--sm { max-width: 180px; }
+      .pqr-card--sm { max-width: 240px; }
       .pqr-img { width: 200px; height: 200px; }
-      .pqr-img--sm { width: 130px; height: 130px; }
+      .pqr-img--sm { width: 180px; height: 180px; }
     }
   `],
 })
@@ -324,7 +324,7 @@ export class PaymentQrComponent implements OnInit {
 
     try {
       const uri = this.buildUpiUri();
-      const qrSize = this.compact() ? 150 : 250;
+      const qrSize = this.compact() ? 200 : 250;
       const dataUrl = await QRCode.toDataURL(uri, {
         width: qrSize,
         margin: 1,

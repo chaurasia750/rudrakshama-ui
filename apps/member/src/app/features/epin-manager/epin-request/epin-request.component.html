@@ -205,8 +205,8 @@
                       ? 'peer block w-full appearance-none rounded-lg border px-3 pb-2 pt-4 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-red-400 bg-red-500/5 focus:border-red-400 focus:ring-red-400/20'
                       : 'peer block w-full appearance-none rounded-lg border px-3 pb-2 pt-4 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 focus:border-brand-500 focus:ring-brand-500/20 bg-transparent'"
                   >
-                    @for (upi of filteredBankAccounts; track upi.accountNo) {
-                      <option [value]="upi.accountNo">{{ upi.accountNo }}</option>
+                    @for (upi of filteredBankAccounts; track upi.id) {
+                      <option [value]="getUpiDisplay(upi)">{{ getUpiDisplay(upi) }}</option>
                     }
                   </select>
                   <label for="upiSelect" class="absolute text-xs text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-2.5 scale-75 top-3.5 z-10 origin-[0] peer-focus:text-saffron-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-2.5 left-3">UPI Id <span class="text-red-500">*</span></label>
@@ -332,7 +332,7 @@
             </div>
             @if (paymentMode === 'UPI' && amount > 0) {
               <ui-payment-qr
-                [upiId]="selectedBankAccNo ?? filteredBankAccounts[0]?.accountNo ?? ''"
+                [upiId]="selectedBankAccNo || (filteredBankAccounts[0] ? getUpiDisplay(filteredBankAccounts[0]) : '')"
                 [merchantName]="companyName"
                 [amount]="amount"
                 [transactionNote]="'Kit Order - ' + (selectedKit?.kitCode || '')"

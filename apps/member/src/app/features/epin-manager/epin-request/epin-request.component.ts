@@ -125,8 +125,9 @@ export class EpinRequestComponent implements OnInit {
       this.filteredBankAccounts = this.bankAccounts.filter(b => b.paymentTypeId === 2);
       if (this.filteredBankAccounts.length > 0) {
         const first = this.filteredBankAccounts[0];
-        this.selectedBankAccNo = first.accountNo;
-        this.onBankChange(first.accountNo);
+        const upiVal = first.upiId || first.accountNo;
+        this.selectedBankAccNo = upiVal;
+        this.onBankChange(upiVal);
       }
     } else {
       this.paymentTypeId = null;
@@ -203,10 +204,17 @@ export class EpinRequestComponent implements OnInit {
 
   onBankChange(accNo: string): void {
     this.selectedBankAccNo = accNo;
-    const bank = this.bankAccounts.find(b => b.accountNo === accNo);
+    const bank = this.bankAccounts.find(b =>
+      (b.upiId && String(b.upiId) === String(accNo)) ||
+      String(b.accountNo) === String(accNo)
+    );
     this.selectedBank = bank ?? null;
-    this.accountNo = bank ? bank.accountNo : '';
+    this.accountNo = bank ? String(bank.accountNo) : '';
     this.cdr.markForCheck();
+  }
+
+  getUpiDisplay(bank: CompanyBankAccount): string {
+    return bank.upiId || bank.accountNo;
   }
 
   maskAccountNo(accNo: string): string {
@@ -235,6 +243,15 @@ export class EpinRequestComponent implements OnInit {
         const unwrapped = res?.data ?? res;
         this.bankAccounts = Array.isArray(unwrapped) ? unwrapped : [];
         this.applyDefaults();
+        if (this.paymentTypeId !== null) {
+          this.filteredBankAccounts = this.bankAccounts.filter(b => b.paymentTypeId === this.paymentTypeId);
+          if (this.filteredBankAccounts.length > 0 && !this.selectedBankAccNo) {
+            const first = this.filteredBankAccounts[0];
+            const upiVal = first.upiId || first.accountNo;
+            this.selectedBankAccNo = upiVal;
+            this.onBankChange(upiVal);
+          }
+        }
         this.cdr.markForCheck();
       },
       error: (err) => {
