@@ -3,7 +3,7 @@
     <div class="min-w-0 flex-1">
       <ui-breadcrumb pageTitle="District" [items]="breadcrumbItems" />
       <h2 class="mt-1 text-xl sm:text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
-        <svg class="h-6 w-6 sm:h-7 sm:w-7 text-[#FFD000]" fill="currentColor" viewBox="0 0 20 20">
+        <svg class="h-6 w-6 sm:h-7 sm:w-7 text-[#FF6F00]" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
         </svg>
         Manage District
@@ -26,7 +26,7 @@
           <label class="mb-1.5 block text-sm font-semibold text-gray-700 tracking-wide">District Name <span class="text-red-400">*</span></label>
           <input type="text" formControlName="name"
             [readonly]="isEdit()"
-            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-all duration-200 hover:border-[#FFD000] hover:shadow-sm focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20 focus:shadow-md"
+            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-all duration-200 hover:border-[#FF6F00] hover:shadow-sm focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20 focus:shadow-md"
             placeholder="Enter district name"
             [ngClass]="[districtForm.get('name')?.touched && districtForm.get('name')?.invalid ? 'border-red-400 bg-red-50/50' : '', isEdit() ? 'cursor-not-allowed opacity-60 bg-gray-50' : '']"
           />
@@ -42,7 +42,7 @@
           <select formControlName="cid"
             [disabled]="isEdit()"
             (change)="onCountryChange(districtForm.get('cid')?.value ?? 0)"
-            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 transition-all duration-200 hover:border-[#FFD000] hover:shadow-sm focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20 focus:shadow-md"
+            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 transition-all duration-200 hover:border-[#FF6F00] hover:shadow-sm focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20 focus:shadow-md"
             [ngClass]="[districtForm.get('cid')?.touched && districtForm.get('cid')?.invalid ? 'border-red-400 bg-red-50/50' : '', isEdit() ? 'cursor-not-allowed opacity-60 bg-gray-50' : '']">
             <option [value]="0" disabled>Select country</option>
             @for (c of countries(); track c.id) {
@@ -60,7 +60,7 @@
           <label class="mb-1.5 block text-sm font-semibold text-gray-700 tracking-wide">State <span class="text-red-400">*</span></label>
           <select formControlName="sid"
             [disabled]="isEdit()"
-            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 transition-all duration-200 hover:border-[#FFD000] hover:shadow-sm focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20 focus:shadow-md"
+            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 transition-all duration-200 hover:border-[#FF6F00] hover:shadow-sm focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20 focus:shadow-md"
             [ngClass]="[districtForm.get('sid')?.touched && districtForm.get('sid')?.invalid ? 'border-red-400 bg-red-50/50' : '', isEdit() ? 'cursor-not-allowed opacity-60 bg-gray-50' : '']">
             <option [value]="0" disabled>Select state</option>
             @for (s of states(); track s.id) {
@@ -78,13 +78,13 @@
           <label class="mb-2 block text-sm font-semibold text-gray-700 tracking-wide">Status <span class="text-red-400">*</span></label>
           <div class="flex items-center gap-4">
             <label class="flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-5 py-2.5 text-sm font-medium transition-all duration-200"
-              [ngClass]="districtForm.get('isActive')?.value === true ? 'border-[#FFD000] bg-[#FFD000]/10 text-[#FFD000] shadow-sm' : 'border-gray-200 bg-white text-gray-600 hover:border-[#FFD000] hover:bg-[#FFD000]/5 hover:text-[#FFD000]'">
-              <input type="radio" formControlName="isActive" [value]="true" class="h-4 w-4 accent-[#FFD000]" />
+              [ngClass]="districtForm.get('isActive')?.value === true ? 'border-[#FF6F00] bg-[#FF6F00]/10 text-[#FF6F00] shadow-sm' : 'border-gray-200 bg-white text-gray-600 hover:border-[#FF6F00] hover:bg-[#FF6F00]/5 hover:text-[#FF6F00]'">
+              <input type="radio" formControlName="isActive" [value]="true" class="h-4 w-4 accent-[#FF6F00]" />
               Active
             </label>
             <label class="flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-5 py-2.5 text-sm font-medium transition-all duration-200"
-              [ngClass]="districtForm.get('isActive')?.value === false ? 'border-[#FFD000] bg-[#FFD000]/10 text-[#FFD000] shadow-sm' : 'border-gray-200 bg-white text-gray-600 hover:border-[#FFD000] hover:bg-[#FFD000]/5 hover:text-[#FFD000]'">
-              <input type="radio" formControlName="isActive" [value]="false" class="h-4 w-4 accent-[#FFD000]" />
+              [ngClass]="districtForm.get('isActive')?.value === false ? 'border-[#FF6F00] bg-[#FF6F00]/10 text-[#FF6F00] shadow-sm' : 'border-gray-200 bg-white text-gray-600 hover:border-[#FF6F00] hover:bg-[#FF6F00]/5 hover:text-[#FF6F00]'">
+              <input type="radio" formControlName="isActive" [value]="false" class="h-4 w-4 accent-[#FF6F00]" />
               Inactive
             </label>
           </div>
@@ -108,7 +108,7 @@
 
   @if (loading()) {
     <div class="flex items-center justify-center py-20">
-      <div class="h-8 w-8 animate-spin rounded-full border-4 border-[#FFD000] border-t-transparent"></div>
+      <div class="h-8 w-8 animate-spin rounded-full border-4 border-[#FF6F00] border-t-transparent"></div>
     </div>
   } @else if (districts().length === 0) {
     <div class="flex flex-col items-center justify-center py-20 text-gray-400">
@@ -133,7 +133,7 @@
           </thead>
           <tbody class="divide-y divide-gray-100">
             @for (district of districts(); track district.id; let i = $index) {
-              <tr class="transition-colors hover:bg-[#FFD000]/10" [ngClass]="i % 2 === 0 ? 'bg-white' : 'bg-[#FFD000]/5'">
+              <tr class="transition-colors hover:bg-[#FF6F00]/10" [ngClass]="i % 2 === 0 ? 'bg-white' : 'bg-[#FF6F00]/5'">
                 <td class="px-4 py-3 text-gray-500 text-xs">{{ (pageIndex() - 1) * pageSize() + i + 1 }}</td>
                 <td class="px-4 py-3 font-medium text-gray-800">{{ district.name }}</td>
                 <td class="px-4 py-3 text-gray-600">{{ district.countryName }}</td>

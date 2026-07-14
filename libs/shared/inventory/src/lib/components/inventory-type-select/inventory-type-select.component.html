@@ -2,7 +2,7 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     <div class="relative">
       <select [id]="typeControlName" [formControlName]="typeControlName"
-        class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 pr-10 text-sm text-primary-fg transition-colors focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20 cursor-pointer"
+        class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 pr-10 text-sm text-primary-fg transition-colors focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20 cursor-pointer"
       >
         @if (loadingTypes) {
           <option value="" disabled>Loading...</option>
@@ -21,7 +21,7 @@
 
     <div class="relative">
       <select [id]="propertyControlName" [formControlName]="propertyControlName"
-        class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 pr-10 text-sm text-primary-fg transition-colors focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20 cursor-pointer"
+        class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 pr-10 text-sm text-primary-fg transition-colors focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20 cursor-pointer"
       >
         @if (!formGroup.get(typeControlName)?.value) {
           <option value="" disabled>Select type first</option>

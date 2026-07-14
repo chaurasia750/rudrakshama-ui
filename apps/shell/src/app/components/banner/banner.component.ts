@@ -17,7 +17,7 @@ import { NgClass } from '@angular/common';
         @for (slide of slides; track slide; let i = $index) {
           <button (click)="goTo(i)"
                   class="w-2.5 h-2.5 rounded-full transition-all duration-300"
-                  [ngClass]="i === currentIndex ? 'bg-[#FFD000] w-6' : 'bg-white/50 hover:bg-white/80'">
+                  [ngClass]="i === currentIndex ? 'bg-[#FF6F00] w-6' : 'bg-white/50 hover:bg-white/80'">
           </button>
         }
       </div>

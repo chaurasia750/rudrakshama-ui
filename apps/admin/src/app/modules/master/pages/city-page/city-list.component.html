@@ -3,7 +3,7 @@
     <div class="min-w-0 flex-1">
       <ui-breadcrumb pageTitle="City" [items]="breadcrumbItems" />
       <h2 class="mt-1 text-xl sm:text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
-        <svg class="h-6 w-6 sm:h-7 sm:w-7 text-[#FFD000]" fill="currentColor" viewBox="0 0 20 20">
+        <svg class="h-6 w-6 sm:h-7 sm:w-7 text-[#FF6F00]" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.53 1.53 0 00-.08.39l-.44 2.64a6.98 6.98 0 00-2.01 1.16l-2.52-.76a1.53 1.53 0 00-1.96 2l.93 2.53a6.98 6.98 0 000 2.34l-.93 2.53a1.53 1.53 0 001.96 2l2.52-.76a6.98 6.98 0 002.01 1.16l.44 2.64c.15.89 1.35 1.09 1.98.44a6.98 6.98 0 001.54-2.1l1.47-2.22a6.98 6.98 0 002.06-.5l2.52.76a1.53 1.53 0 001.96-2l-.93-2.53a6.98 6.98 0 000-2.34l.93-2.53a1.53 1.53 0 00-1.96-2l-2.52.76a6.98 6.98 0 00-2.06-.5l-1.47-2.22a6.98 6.98 0 00-1.54-2.1zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
         </svg>
         Manage City
@@ -18,7 +18,7 @@
         <div>
           <label class="mb-1.5 block text-sm font-semibold text-gray-700 tracking-wide">City Name <span class="text-red-400">*</span></label>
           <input type="text" formControlName="cityName"
-            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-all duration-200 hover:border-[#FFD000] hover:shadow-sm focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20"
+            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-all duration-200 hover:border-[#FF6F00] hover:shadow-sm focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
             placeholder="Enter city name" />
           @if (cityForm.get('cityName')?.touched && cityForm.get('cityName')?.invalid) {
             <p class="mt-1.5 text-xs text-red-500">City name is required.</p>
@@ -27,7 +27,7 @@
         <div>
           <label class="mb-1.5 block text-sm font-semibold text-gray-700 tracking-wide">Pincode</label>
           <input type="text" formControlName="pincode" maxlength="6" (input)="onInputPincode($event)"
-            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-all duration-200 hover:border-[#FFD000] hover:shadow-sm focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20"
+            class="block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 transition-all duration-200 hover:border-[#FF6F00] hover:shadow-sm focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
             placeholder="Enter 6-digit pincode" />
           @if (cityForm.get('pincode')?.touched && cityForm.get('pincode')?.invalid) {
             @if (cityForm.get('pincode')?.errors?.['minlength'] || cityForm.get('pincode')?.errors?.['maxlength']) {
@@ -39,13 +39,13 @@
           <label class="mb-2 block text-sm font-semibold text-gray-700 tracking-wide">Status</label>
           <div class="flex items-center gap-4">
             <label class="flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-5 py-2.5 text-sm font-medium transition-all duration-200"
-              [ngClass]="cityForm.get('isActive')?.value === true ? 'border-[#FFD000] bg-[#FFD000]/10 text-[#FFD000] shadow-sm' : 'border-gray-200 bg-white text-gray-600 hover:border-[#FFD000]'">
-              <input type="radio" formControlName="isActive" [value]="true" class="h-4 w-4 accent-[#FFD000]" />
+              [ngClass]="cityForm.get('isActive')?.value === true ? 'border-[#FF6F00] bg-[#FF6F00]/10 text-[#FF6F00] shadow-sm' : 'border-gray-200 bg-white text-gray-600 hover:border-[#FF6F00]'">
+              <input type="radio" formControlName="isActive" [value]="true" class="h-4 w-4 accent-[#FF6F00]" />
               Active
             </label>
             <label class="flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-5 py-2.5 text-sm font-medium transition-all duration-200"
-              [ngClass]="cityForm.get('isActive')?.value === false ? 'border-[#FFD000] bg-[#FFD000]/10 text-[#FFD000] shadow-sm' : 'border-gray-200 bg-white text-gray-600 hover:border-[#FFD000]'">
-              <input type="radio" formControlName="isActive" [value]="false" class="h-4 w-4 accent-[#FFD000]" />
+              [ngClass]="cityForm.get('isActive')?.value === false ? 'border-[#FF6F00] bg-[#FF6F00]/10 text-[#FF6F00] shadow-sm' : 'border-gray-200 bg-white text-gray-600 hover:border-[#FF6F00]'">
+              <input type="radio" formControlName="isActive" [value]="false" class="h-4 w-4 accent-[#FF6F00]" />
               Inactive
             </label>
           </div>
@@ -69,7 +69,7 @@
 
   @if (loading()) {
     <div class="flex items-center justify-center py-20">
-      <div class="h-8 w-8 animate-spin rounded-full border-4 border-[#FFD000] border-t-transparent"></div>
+      <div class="h-8 w-8 animate-spin rounded-full border-4 border-[#FF6F00] border-t-transparent"></div>
     </div>
   } @else if (cities().length === 0) {
     <div class="flex flex-col items-center justify-center py-20 text-gray-400">
@@ -93,7 +93,7 @@
           </thead>
           <tbody class="divide-y divide-gray-100">
             @for (city of cities(); track city.id; let i = $index) {
-              <tr class="transition-colors hover:bg-[#FFD000]/10" [ngClass]="i % 2 === 0 ? 'bg-white' : 'bg-[#FFD000]/5'">
+              <tr class="transition-colors hover:bg-[#FF6F00]/10" [ngClass]="i % 2 === 0 ? 'bg-white' : 'bg-[#FF6F00]/5'">
                 <td class="px-4 py-3 text-gray-500 text-xs">{{ (pageIndex() - 1) * pageSize() + i + 1 }}</td>
                 <td class="px-4 py-3 text-gray-600">{{ city.countryName }}</td>
                 <td class="px-4 py-3 text-gray-600">{{ city.stateName }}</td>

@@ -62,7 +62,7 @@
 
               <!-- Title + First Name | Last Name -->
               <div class="grid grid-cols-1 gap-4 sm:grid-cols-[1fr_1fr] items-start">
-                <div class="flex flex-row rounded-xl border border-default bg-surface focus-within:border-[#FFD000] focus-within:ring-2 focus-within:ring-[#FFD000]/20">
+                <div class="flex flex-row rounded-xl border border-default bg-surface focus-within:border-[#FF6F00] focus-within:ring-2 focus-within:ring-[#FF6F00]/20">
                   <div class="shrink-0 w-20">
                     <shared-title-select formControlName="title"></shared-title-select>
                   </div>
@@ -71,16 +71,16 @@
                     <input #formInput id="editFirstName" type="text" formControlName="firstName" placeholder=" " (input)="onInputName($event, 'firstName')"
                       class="peer block w-full border-0 bg-transparent px-4 pb-2.5 pt-5 text-sm text-primary-fg placeholder:text-muted-fg focus:outline-none"
                     />
-                    <label for="editFirstName" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FFD000]">
+                    <label for="editFirstName" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FF6F00]">
                       First Name <span class="text-red-400">*</span>
                     </label>
                   </div>
                 </div>
                 <div class="relative">
                   <input #formInput id="editLastName" type="text" formControlName="lastName" placeholder=" " (input)="onInputName($event, 'lastName')"
-                    class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20"
+                    class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
                   />
-                  <label for="editLastName" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FFD000]">
+                  <label for="editLastName" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FF6F00]">
                     Last Name <span class="text-red-400">*</span>
                   </label>
                 </div>
@@ -112,10 +112,10 @@
                     <label
                       class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-sm transition-colors"
                       [ngClass]="editForm.get('gender')?.value === g.value
-                        ? 'border-[#FFD000] bg-[#FFD000]/25 text-[#FFD000] font-semibold'
-                        : 'border-default bg-surface text-primary-fg hover:border-[#FFD000] hover:bg-[#FFD000]/5 hover:text-[#FFD000]'"
+                        ? 'border-[#FF6F00] bg-[#FF6F00]/25 text-[#FF6F00] font-semibold'
+                        : 'border-default bg-surface text-primary-fg hover:border-[#FF6F00] hover:bg-[#FF6F00]/5 hover:text-[#FF6F00]'"
                     >
-                      <input type="radio" formControlName="gender" [value]="g.value" class="h-4 w-4 accent-[#FFD000]" />
+                      <input type="radio" formControlName="gender" [value]="g.value" class="h-4 w-4 accent-[#FF6F00]" />
                       {{ g.label }}
                     </label>
                   }
@@ -130,9 +130,9 @@
                 <div class="relative">
                   <input #formInput id="editEmail" type="email" formControlName="email" placeholder=" "
                     class="peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2"
-                    [ngClass]="isInvalid('email') ? 'border-red-400 bg-red-50/40 dark:bg-red-500/10 focus:border-red-400 focus:ring-red-400/20' : 'border-default bg-surface focus:border-[#FFD000] focus:ring-[#FFD000]/20'"
+                    [ngClass]="isInvalid('email') ? 'border-red-400 bg-red-50/40 dark:bg-red-500/10 focus:border-red-400 focus:ring-red-400/20' : 'border-default bg-surface focus:border-[#FF6F00] focus:ring-[#FF6F00]/20'"
                   />
-                  <label for="editEmail" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FFD000]">
+                  <label for="editEmail" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FF6F00]">
                     Email <span class="text-red-400">*</span>
                   </label>
                   @if (isInvalid('email')) {
@@ -144,9 +144,9 @@
                     <span class="pointer-events-none absolute left-4 top-5 bottom-2.5 z-10 flex items-center select-none text-sm font-semibold text-primary-fg/50">+91</span>
                     <input #formInput id="editPhone" type="text" maxlength="12" formControlName="phone" placeholder=" " (input)="onInputPhone($event)"
                       class="peer block w-full appearance-none rounded-xl border pl-12 pr-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2"
-                      [ngClass]="isInvalid('phone') ? 'border-red-400 bg-red-50/40 dark:bg-red-500/10 focus:border-red-400 focus:ring-red-400/20' : 'border-default bg-surface focus:border-[#FFD000] focus:ring-[#FFD000]/20'"
+                      [ngClass]="isInvalid('phone') ? 'border-red-400 bg-red-50/40 dark:bg-red-500/10 focus:border-red-400 focus:ring-red-400/20' : 'border-default bg-surface focus:border-[#FF6F00] focus:ring-[#FF6F00]/20'"
                     />
-                    <label for="editPhone" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-5 peer-placeholder-shown:left-12 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:left-4 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FFD000]">
+                    <label for="editPhone" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-5 peer-placeholder-shown:left-12 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:left-4 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FF6F00]">
                       Phone <span class="text-red-400">*</span>
                     </label>
                   </div>
@@ -162,9 +162,9 @@
                 <div class="relative">
                   <input #formInput id="editAadhaar" type="text" maxlength="14" formControlName="adharNo" placeholder=" " 
                     class="peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm tracking-widest text-primary-fg transition-colors focus:outline-none focus:ring-2"
-                    [ngClass]="isInvalid('aadhaarNo') ? 'border-red-400 bg-red-50/40 dark:bg-red-500/10 focus:border-red-400 focus:ring-red-400/20' : 'border-default bg-surface focus:border-[#FFD000] focus:ring-[#FFD000]/20'"
+                    [ngClass]="isInvalid('aadhaarNo') ? 'border-red-400 bg-red-50/40 dark:bg-red-500/10 focus:border-red-400 focus:ring-red-400/20' : 'border-default bg-surface focus:border-[#FF6F00] focus:ring-[#FF6F00]/20'"
                   />
-                  <label for="editAadhaar" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FFD000]">
+                  <label for="editAadhaar" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FF6F00]">
                     Aadhaar Number
                   </label>
                   @if (isInvalid('aadhaarNo')) {
@@ -175,9 +175,9 @@
                 <div class="relative">
                   <input #formInput id="editPan" type="text" maxlength="10" formControlName="memPan" placeholder=" " 
                     class="peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm uppercase tracking-widest text-primary-fg transition-colors focus:outline-none focus:ring-2"
-                    [ngClass]="isInvalid('memPan') ? 'border-red-400 bg-red-50/40 dark:bg-red-500/10 focus:border-red-400 focus:ring-red-400/20' : 'border-default bg-surface focus:border-[#FFD000] focus:ring-[#FFD000]/20'"
+                    [ngClass]="isInvalid('memPan') ? 'border-red-400 bg-red-50/40 dark:bg-red-500/10 focus:border-red-400 focus:ring-red-400/20' : 'border-default bg-surface focus:border-[#FF6F00] focus:ring-[#FF6F00]/20'"
                   />
-                  <label for="editPan" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FFD000]">
+                  <label for="editPan" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FF6F00]">
                     PAN Card
                   </label>
                   @if (isInvalid('memPan')) {

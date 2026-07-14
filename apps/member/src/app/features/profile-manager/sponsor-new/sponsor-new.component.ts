@@ -16,7 +16,7 @@ import { MemberProfileService } from '../../../shared/services/member-profile.se
       ></shared-sponsor-registration>
     } @else {
       <div class="flex items-center justify-center py-20">
-        <svg class="h-8 w-8 animate-spin text-[#FFD000]" viewBox="0 0 24 24" fill="none">
+        <svg class="h-8 w-8 animate-spin text-[#FF6F00]" viewBox="0 0 24 24" fill="none">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
         </svg>

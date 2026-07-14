@@ -44,7 +44,7 @@ export class UiButtonComponent {
       danger: 'bg-red-500/90 text-white shadow-lg hover:bg-red-600 focus:ring-red-500',
       outline: 'border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50 focus:ring-gray-200',
       ghost: 'text-gray-500 hover:bg-gray-100 focus:ring-gray-200',
-      yellow: 'bg-[#FFC107] text-black shadow-sm hover:bg-[#FFD000] focus:ring-[#FFC107]/50',
+      yellow: 'bg-[#FF6F00] text-white shadow-sm hover:bg-[#F57C00] focus:ring-[#FF6F00]/50',
     };
 
     return `${base} ${sizes[this.size()]} ${variants[this.variant()]}`;

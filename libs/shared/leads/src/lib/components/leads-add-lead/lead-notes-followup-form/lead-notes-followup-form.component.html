@@ -4,7 +4,7 @@
     <p class="mb-1.5 text-xs font-medium text-primary-fg">Notes / Description</p>
     <textarea formControlName="notes" rows="11"
       placeholder="Write detailed notes about this lead — their requirements, budget, timeline, and any key discussion points..."
-      class="w-full resize-none rounded-xl border border-default bg-surface p-4 text-sm leading-relaxed text-primary-fg placeholder:text-primary-fg/40 focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20"
+      class="w-full resize-none rounded-xl border border-default bg-surface p-4 text-sm leading-relaxed text-primary-fg placeholder:text-primary-fg/40 focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
     ></textarea>
     <p class="mt-1.5 text-xs text-primary-fg/50">
       <span class="font-medium">{{ form().get('notes')?.value?.length || 0 }}</span> characters
@@ -25,7 +25,7 @@
 
     <div class="relative">
       <input id="followUpTime" type="time" formControlName="followUpTime" placeholder=" "
-        class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20"
+        class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
       />
       <label for="followUpTime" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-primary-fg">
         Follow Up Time
@@ -39,9 +39,9 @@
           <label class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-xs sm:text-sm transition-colors text-center"
             [ngClass]="form().get('priority')?.value === p.value
               ? 'border-[var(--pcolor)] bg-[var(--pbg)] text-[var(--pcolor)] font-semibold'
-              : 'border-default bg-surface text-primary-fg hover:border-[#FFD000] hover:bg-[#FFD000]/5 hover:text-[#FFD000]'"
+              : 'border-default bg-surface text-primary-fg hover:border-[#FF6F00] hover:bg-[#FF6F00]/5 hover:text-[#FF6F00]'"
             [style]="'--pcolor: ' + p.color + '; --pbg: ' + p.color + '15;'">
-            <input type="radio" formControlName="priority" [value]="p.value" class="h-4 w-4 accent-[#FFD000]" />
+            <input type="radio" formControlName="priority" [value]="p.value" class="h-4 w-4 accent-[#FF6F00]" />
             <span class="h-2 w-2 rounded-full" [style.background]="p.color"></span>
             {{ p.label }}
           </label>
@@ -59,10 +59,10 @@
       <p class="mb-1.5 text-xs font-medium text-primary-fg">Tags</p>
       <div class="mb-2 flex min-h-[28px] flex-wrap gap-1.5">
         @for (tag of form().get('tags')?.value; track tag) {
-          <span class="inline-flex items-center gap-1.5 rounded-lg bg-[#FFD000]/15 px-2.5 py-1 text-xs font-medium text-[#BFA100]">
+          <span class="inline-flex items-center gap-1.5 rounded-lg bg-[#FF6F00]/15 px-2.5 py-1 text-xs font-medium text-[#BFA100]">
             {{ tag }}
             <button type="button" (click)="removeTag(tag)"
-                    class="flex h-3.5 w-3.5 items-center justify-center rounded-full transition-colors hover:bg-[#FFD000]/30">
+                    class="flex h-3.5 w-3.5 items-center justify-center rounded-full transition-colors hover:bg-[#FF6F00]/30">
               <svg class="h-2.5 w-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           </span>
@@ -71,7 +71,7 @@
       <div class="relative">
         <select id="tagsSelect" [(ngModel)]="selectedTag" name="selectedTag" [ngModelOptions]="{standalone: true}" (change)="addTag(selectedTag)"
           class="peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 pr-10 text-sm transition-colors focus:outline-none focus:ring-2 cursor-pointer"
-          [ngClass]="selectedTag ? 'border-default bg-surface text-primary-fg focus:border-[#FFD000] focus:ring-[#FFD000]/20' : 'border-default bg-surface text-primary-fg focus:border-[#FFD000] focus:ring-[#FFD000]/20'">
+          [ngClass]="selectedTag ? 'border-default bg-surface text-primary-fg focus:border-[#FF6F00] focus:ring-[#FF6F00]/20' : 'border-default bg-surface text-primary-fg focus:border-[#FF6F00] focus:ring-[#FF6F00]/20'">
           <option value="" disabled>Add a tag</option>
           @for (t of availableTags(); track t) {
             <option [value]="t" [disabled]="form().get('tags')?.value?.includes(t)">{{ t }}</option>

@@ -55,7 +55,7 @@
             </div>
             <div class="relative sm:col-span-2">
               <textarea id="description" formControlName="description" rows="2" placeholder=" "
-                class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:border-[#FFD000] focus:outline-none focus:ring-2 focus:ring-[#FFD000]/20 resize-none"></textarea>
+                class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20 resize-none"></textarea>
               <label for="description"
                 class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-primary-fg">
                 Description
@@ -111,14 +111,14 @@
         }
         @if (!isLastStep()) {
           <button type="button" (click)="nextStep()"
-                  class="inline-flex items-center gap-2 rounded-xl bg-[#FFD000] px-6 py-2.5 text-sm font-semibold text-black shadow-lg shadow-[#FFD000]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl">
+                  class="inline-flex items-center gap-2 rounded-xl bg-[#FF6F00] px-6 py-2.5 text-sm font-semibold text-black shadow-lg shadow-[#FF6F00]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl">
             Next
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
         }
         @if (isLastStep()) {
           <button type="button" (click)="onSubmit()" [disabled]="submitting()"
-                  class="inline-flex items-center gap-2 rounded-xl bg-[#FFD000] px-6 py-2.5 text-sm font-semibold text-black shadow-lg shadow-[#FFD000]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed">
+                  class="inline-flex items-center gap-2 rounded-xl bg-[#FF6F00] px-6 py-2.5 text-sm font-semibold text-black shadow-lg shadow-[#FF6F00]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed">
             @if (submitting()) {
               <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/></svg>
               Saving...

@@ -55,7 +55,7 @@ interface EPinRequestListItem {
               </thead>
               <tbody class="divide-y divide-gray-100 dark:divide-white/[0.05]">
                 @for (item of currentItems; track $index; let i = $index) {
-                <tr class="transition-colors hover:bg-[#FFD000]/10" [ngClass]="i % 2 === 0 ? 'bg-white' : 'bg-[#FFD000]/5'">
+                <tr class="transition-colors hover:bg-[#FF6F00]/10" [ngClass]="i % 2 === 0 ? 'bg-white' : 'bg-[#FF6F00]/5'">
                   <td class="px-4 py-4 text-gray-700 whitespace-nowrap text-theme-sm dark:text-gray-400">{{ item.siNo }}</td>
                   <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.packageName }}</td>
                   <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.price | currency:'INR' }}</td>
