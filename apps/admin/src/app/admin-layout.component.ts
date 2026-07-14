@@ -51,8 +51,8 @@ export class AdminLayoutComponent {
         { name: 'District', path: '/admin/master/district' },
         { name: 'City', path: '/admin/master/city' },
       ]},
-      { label: 'E-Pin Manager', section: 'MANAGEMENT', icon: EPIN_ICON, subItems: [
-        { name: 'Requested E-Pin List', path: '/admin/epin-manager/requested-list' },
+      { label: 'Recent Orders', section: 'MANAGEMENT', icon: EPIN_ICON, subItems: [
+        { name: 'Recent Orders', path: '/admin/epin-manager/requested-list' },
       ]},
       { label: 'Users', route: '/admin/users', section: 'MANAGEMENT', icon: USERS_ICON },
     ],
