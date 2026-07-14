@@ -2,28 +2,30 @@
   @if (label) {
     <label class="mb-1 block text-xs font-medium text-gray-500">{{ label }}@if (required) {<span class="text-red-400"> *</span>}</label>
   }
-  <input 
-    type="text"
-    [placeholder]="placeholder"
-    [matDatepicker]="picker"
-    readonly
-    [formControl]="dateControl"
-    [class.border-red-500]="getIsInvalid()"
-    class="w-full pr-10 border border-gray-300 rounded-md px-3 py-2 text-sm h-10 bg-gray-50 cursor-pointer focus:outline-none focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)] transition-all duration-150"
-    (click)="onInputClick()"
-    (blur)="onInputBlur()"
-    (dateChange)="onDateChange($event.value)"
-  />
-  <button
-    type="button"
-    class="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded transition-colors"
-    (click)="onInputClick()"
-    aria-label="Open date picker"
-  >
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h18M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-    </svg>
-  </button>
+  <div class="relative">
+    <input 
+      type="text"
+      [placeholder]="placeholder"
+      [matDatepicker]="picker"
+      readonly
+      [formControl]="dateControl"
+      [class.border-red-500]="getIsInvalid()"
+      class="w-full pr-10 border border-gray-300 rounded-md px-3 py-2 text-sm h-10 bg-gray-50 cursor-pointer focus:outline-none focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.1)] transition-all duration-150"
+      (click)="onInputClick()"
+      (blur)="onInputBlur()"
+      (dateChange)="onDateChange($event.value)"
+    />
+    <button
+      type="button"
+      class="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded transition-colors"
+      (click)="onInputClick()"
+      aria-label="Open date picker"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h18M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+    </button>
+  </div>
   <mat-datepicker #picker panelClass="custom-datepicker-panel" (opened)="onPickerOpened()" (closed)="onPickerClosed()"></mat-datepicker>
 </div>
 @if (getIsInvalid()) {

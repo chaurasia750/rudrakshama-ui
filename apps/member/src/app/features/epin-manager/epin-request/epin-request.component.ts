@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PageBreadcrumbComponent } from '../../../shared/components/common/page-breadcrumb/page-breadcrumb.component';
 import { PaymentQrComponent } from '@shared';
+import { SharedDatePickerComponent } from '@shared/ui/src';
 import { MembersService, Kit, CompanyBankAccount } from '@shared/members/src';
 import { MediaService } from '@shared/index';
 import { MemberProfileService } from '../../../shared/services/member-profile.service';
@@ -20,7 +21,7 @@ interface KitProduct extends Kit {
 
 @Component({
   selector: 'app-epin-request',
-  imports: [CommonModule, FormsModule, PageBreadcrumbComponent, PaymentQrComponent],
+  imports: [CommonModule, FormsModule, PageBreadcrumbComponent, PaymentQrComponent, SharedDatePickerComponent],
   templateUrl: './epin-request.component.html',
 })
 export class EpinRequestComponent implements OnInit {
@@ -41,7 +42,7 @@ export class EpinRequestComponent implements OnInit {
   referenceType: string = '';
   referenceId: string = '';
   referenceNo: string = '';
-  paymentDate: string = '';
+  paymentDate: Date | null = null;
   receiptFile: File | null = null;
   receiptPath: string = '';
   receiptMediaId: number | null = null;
@@ -258,7 +259,7 @@ export class EpinRequestComponent implements OnInit {
     this.referenceType = '';
     this.referenceId = '';
     this.referenceNo = '';
-    this.paymentDate = '';
+    this.paymentDate = null;
     this.receiptFile = null;
     this.receiptPath = '';
     this.receiptMediaId = null;
@@ -310,11 +311,7 @@ export class EpinRequestComponent implements OnInit {
     this.noOfEpin = 1;
     this.amount = this.noOfEpin * (this.selectedPrice || 0);
 
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    this.paymentDate = `${yyyy}-${mm}-${dd}`;
+    this.paymentDate = new Date();
 
     this.paymentMode = 'UPI';
     this.onPaymentModeChange('UPI');
