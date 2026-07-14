@@ -11,16 +11,48 @@
   @if (loading) {
     <div class="px-6 py-4 text-gray-500">Loading...</div>
   } @else {
-    <div class="overflow-hidden">
+    <!-- Mobile Card View -->
+    <div class="md:hidden px-5 space-y-3">
+      @for (item of currentItems; track $index) {
+        <div class="rounded-xl border border-gray-200 bg-white p-4 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-0.5 text-[10px] font-semibold rounded-full"
+                  [class.bg-green-100]="item.status === 'Approved'"
+                  [class.text-green-700]="item.status === 'Approved'"
+                  [class.bg-yellow-100]="item.status === 'Pending'"
+                  [class.text-yellow-700]="item.status === 'Pending'"
+                  [class.bg-red-100]="item.status === 'Rejected'"
+                  [class.text-red-700]="item.status === 'Rejected'"
+                  [class.bg-gray-100]="item.status !== 'Approved' && item.status !== 'Pending' && item.status !== 'Rejected'"
+                  [class.text-gray-600]="item.status !== 'Approved' && item.status !== 'Pending' && item.status !== 'Rejected'">
+              {{ item.status }}
+            </span>
+          </div>
+          <p class="text-sm font-semibold text-gray-800">{{ item.packageName }}</p>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div><span class="text-gray-400">Price:</span> <span class="font-medium text-gray-700">{{ item.price | currency:'INR' }}</span></div>
+            <div><span class="text-gray-400">Amount:</span> <span class="font-medium text-gray-700">{{ item.amount | currency:'INR' }}</span></div>
+            <div><span class="text-gray-400">Payment:</span> <span class="font-medium text-gray-700">{{ item.modeOfPayment }}</span></div>
+            <div><span class="text-gray-400">Account:</span> <span class="font-medium text-gray-700">{{ item.accountNo }}</span></div>
+            <div><span class="text-gray-400">Date:</span> <span class="font-medium text-gray-700">{{ item.requestedOn }}</span></div>
+      </div>
+    </div>
+    }
+      } @empty {
+        <div class="py-8 text-center text-gray-500 text-sm">No records found</div>
+      }
+    </div>
+
+    <!-- Desktop Table View -->
+    <div class="overflow-hidden hidden md:block">
       <div class="max-w-full px-5 overflow-x-auto sm:px-6">
         <table class="min-w-full">
           <thead class="border-gray-100 border-y dark:border-white/[0.05]">
             <tr>
-              <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">S.N.</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Package</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Price</th>
-              <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">No. of Epin</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Mode of Payment</th>
+              <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Account No</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Amount</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Status</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Requested On</th>
@@ -29,18 +61,17 @@
           <tbody class="divide-y divide-gray-100 dark:divide-white/[0.05]">
             @for (item of currentItems; track $index) {
             <tr>
-              <td class="px-4 py-4 text-gray-700 whitespace-nowrap text-theme-sm dark:text-gray-400">{{ item.siNo }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.packageName }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.price | currency:'INR' }}</td>
-              <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.quantity }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.modeOfPayment }}</td>
+              <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.accountNo }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.amount | currency:'INR' }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.status }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.requestedOn }}</td>
             </tr>
             } @empty {
             <tr>
-              <td colspan="8" class="px-4 py-8 text-center text-gray-500">No records found</td>
+              <td colspan="7" class="px-4 py-8 text-center text-gray-500">No records found</td>
             </tr>
             }
           </tbody>

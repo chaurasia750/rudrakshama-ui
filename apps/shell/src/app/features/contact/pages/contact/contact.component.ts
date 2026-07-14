@@ -161,7 +161,7 @@ import { EnquiriesService, EnquiryRequest } from '../../../../services/enquiries
               <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 flex-1 min-h-[300px] lg:min-h-[400px]">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58916.62583979457!2d82.55!3d25.15!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398f33e3b6b6b6b7%3A0x1234567890abcdef!2sMirzapur%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000"
-                  width="100%" height="100%" style="border:0; min-height: 300px;" allowfullscreen="" loading="lazy"
+                   width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
                   referrerpolicy="no-referrer-when-downgrade"
                   title="Rudrakshama office location in Mirzapur, Uttar Pradesh"></iframe>
               </div>

@@ -47,6 +47,7 @@ export class EpinRequestComponent implements OnInit {
   receiptPath: string = '';
   receiptMediaId: number | null = null;
   remark: string = '';
+  fileError: string = '';
   showPayment = false;
   @ViewChild('epinForm') epinForm!: NgForm;
   @ViewChild('paymentSection') paymentSection!: ElementRef;
@@ -182,7 +183,16 @@ export class EpinRequestComponent implements OnInit {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.receiptFile = input.files[0];
+      const file = input.files[0];
+      if (file.size > 1 * 1024 * 1024) {
+        this.fileError = 'File size must be 1 MB or less.';
+        this.receiptFile = null;
+        input.value = '';
+        this.cdr.markForCheck();
+        return;
+      }
+      this.fileError = '';
+      this.receiptFile = file;
     }
   }
 
@@ -264,6 +274,7 @@ export class EpinRequestComponent implements OnInit {
     this.receiptPath = '';
     this.receiptMediaId = null;
     this.remark = '';
+    this.fileError = '';
     this.showPayment = false;
     this.epinForm?.resetForm();
   }

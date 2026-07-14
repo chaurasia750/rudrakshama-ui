@@ -76,7 +76,7 @@ interface Category {
           <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
 
             <!-- Filters Sidebar -->
-            <aside class="w-full lg:w-64 flex-shrink-0">
+            <aside class="w-full lg:w-64 flex-shrink-0" [class.hidden]="!mobileFiltersOpen" [class.lg:block]="true">
               <div class="bg-white rounded-xl p-4 sm:p-5 shadow-sm border border-gray-100 lg:sticky lg:top-24">
                 <div class="flex items-center justify-between mb-4">
                   <h2 class="text-base sm:text-lg font-bold text-brown-700 font-heading">
@@ -88,7 +88,7 @@ interface Category {
                 <!-- Mukhi Filter -->
                 <div class="mb-4 pb-4 border-b border-gray-100">
                   <h3 class="text-xs sm:text-sm font-bold text-brown-700 mb-2">Mukhi</h3>
-                  <div class="grid grid-cols-4 lg:grid-cols-3 gap-1.5">
+                   <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-3 gap-1.5">
                     @for (m of mukhiOptions; track m) {
                       <button (click)="toggleMukhi(m)"
                               class="px-2 py-1.5 text-[10px] sm:text-xs rounded-lg border transition-all text-center font-medium"

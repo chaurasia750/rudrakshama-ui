@@ -40,6 +40,7 @@ import { RouterModule } from '@angular/router';
             <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Quick Links</h4>
             <ul class="space-y-2.5">
               <li><a routerLink="/home" class="text-sm text-gray-400 hover:text-saffron-500 transition-colors">Home</a></li>
+              <li><a routerLink="/shop" class="text-sm text-gray-400 hover:text-saffron-500 transition-colors">Shop</a></li>
               <li><a routerLink="/about" class="text-sm text-gray-400 hover:text-saffron-500 transition-colors">About Us</a></li>
 
               <li><a routerLink="/contact" class="text-sm text-gray-400 hover:text-saffron-500 transition-colors">Contact Us</a></li>
@@ -64,7 +65,7 @@ import { RouterModule } from '@angular/router';
             <ul class="space-y-3">
               <li class="flex items-start gap-2.5">
                 <i class="fa fa-map-marker text-saffron-500 mt-0.5 text-sm" aria-hidden="true"></i>
-                <span class="text-sm text-gray-400">123 Spiritual Lane,<br>Varanasi, UP 221001, India</span>
+                <span class="text-sm text-gray-400">Barew, Adalhat,<br>Mirzapur, UP 221002, India</span>
               </li>
               <li>
                 <a href="tel:+919454799616" class="flex items-center gap-2.5 text-sm text-gray-400 hover:text-saffron-500 transition-colors">

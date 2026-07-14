@@ -10,6 +10,7 @@ interface EPinRequestListItem {
   price: number;
   quantity: number;
   modeOfPayment: string;
+  accountNo: string;
   amount: number;
   status: string;
   requestedOn: string;
@@ -37,13 +38,15 @@ export class EpinRequestListComponent implements OnInit {
     this.membersService.getEPinRequestList().subscribe({
       next: (res: any) => {
         const data = res?.data ?? res;
-        this.requests = (Array.isArray(data) ? data : []).map(
+        const items = Array.isArray(data) ? data : data?.items ?? [];
+        this.requests = items.map(
           (item: any, index: number) => ({
             siNo: index + 1,
             packageName: item.kitCode ?? "",
             price: item.kitPrice ?? 0,
             quantity: item.quantity ?? 0,
             modeOfPayment: item.paymentMode ?? "",
+            accountNo: item.accountNo ?? item.accountNumber ?? item.bankAccountNo ?? item.paymentAccountNo ?? item.referenceNo ?? "",
             amount: item.amount ?? 0,
             status: item.status ?? "",
             requestedOn: item.requestedOn ? item.requestedOn.split('T')[0] : "",

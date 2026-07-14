@@ -15,11 +15,10 @@
         <table class="min-w-full">
           <thead class="border-gray-100 border-y dark:border-white/[0.05]">
             <tr>
-              <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">S.N.</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Package</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Price</th>
-              <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">No. of Epin</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Mode of Payment</th>
+              <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Account No</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Amount</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Status</th>
               <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Requested On</th>
@@ -31,11 +30,10 @@
           <tbody class="divide-y divide-gray-100 dark:divide-white/[0.05]">
             @for (item of currentItems; track $index; let i = $index) {
             <tr class="transition-colors hover:bg-[#FF6F00]/10" [ngClass]="i % 2 === 0 ? 'bg-white' : 'bg-[#FF6F00]/5'">
-              <td class="px-4 py-4 text-gray-700 whitespace-nowrap text-theme-sm dark:text-gray-400">{{ item.siNo }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.packageName }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.price | currency:'INR' }}</td>
-              <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.quantity }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.modeOfPayment }}</td>
+              <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.accountNo }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.amount | currency:'INR' }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.status }}</td>
               <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">{{ item.requestedOn }}</td>
@@ -54,7 +52,7 @@
             </tr>
             } @empty {
             <tr>
-              <td [attr.colspan]="showActions() ? 9 : 8" class="px-4 py-8 text-center text-gray-500">No records found</td>
+              <td [attr.colspan]="showActions() ? 8 : 7" class="px-4 py-8 text-center text-gray-500">No records found</td>
             </tr>
             }
           </tbody>

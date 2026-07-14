@@ -5,7 +5,7 @@
     class="flex flex-col gap-2 mb-4 sm:flex-row sm:items-center sm:justify-between"
   >
     <div>
-      <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
+      <h3 class="text-base sm:text-lg font-semibold text-[#FF6F00] bg-[#FF6F00]/10 inline-block px-3 py-1 rounded-lg">
         Sponsor Members
       </h3>
     </div>
@@ -16,44 +16,73 @@
   }
 
   <div class="max-w-full overflow-x-auto">
-    <table class="w-full text-left">
-      <thead class="border-y border-gray-100 dark:border-gray-800">
+    <!-- Mobile Card View -->
+    <div class="md:hidden space-y-3">
+      @for (member of currentItems; track member.id; let idx = $index) {
+        <div class="rounded-xl border border-gray-200 bg-white p-4 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-saffron-500">#{{ (currentPage - 1) * itemsPerPage + idx + 1 }}</span>
+            <span class="text-[10px] text-gray-400">{{ member.joiningDate | date:'dd/MM/yyyy' }}</span>
+          </div>
+          <p class="text-sm font-semibold text-gray-800">{{ member.name }}</p>
+          <p class="text-xs text-gray-500">{{ member.regNo }}</p>
+        </div>
+      } @empty {
+        <div class="py-8 text-center text-gray-500 text-sm">No members found</div>
+      }
+    </div>
+
+    <!-- Desktop Table View -->
+    <table class="w-full text-left hidden md:table">
+      <thead class="border-y border-gray-200 dark:border-gray-700 bg-cyan-500/5">
         <tr>
           <th
             class="py-3 font-medium text-gray-500 text-theme-xs dark:text-gray-400"
           >
-            S.N.
+            <span class="inline-flex items-center gap-1.5">
+              <svg style="color:#06b6d4" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              S.N.
+            </span>
           </th>
           <th
             class="py-3 font-medium text-gray-500 text-theme-xs dark:text-gray-400"
           >
-            User Name
+            <span class="inline-flex items-center gap-1.5">
+              <svg style="color:#06b6d4" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              User Name
+            </span>
           </th>
           <th
             class="py-3 font-medium text-gray-500 text-theme-xs dark:text-gray-400"
           >
-            Name
+            <span class="inline-flex items-center gap-1.5">
+              <svg style="color:#06b6d4" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+              Name
+            </span>
           </th>
           <th
             class="py-3 font-medium text-gray-500 text-theme-xs dark:text-gray-400"
           >
-            Date
+            <span class="inline-flex items-center gap-1.5">
+              <svg style="color:#06b6d4" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Date
+            </span>
           </th>
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-        @for (member of currentItems; track member.id) {
-        <tr>
-        <td class="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+        @for (member of currentItems; track member.id; let idx = $index) {
+        <tr class="transition-colors duration-200" [class]="idx % 2 === 0 ? 'bg-white dark:bg-transparent' : 'bg-[#FFD000]/10 dark:bg-[#FFD000]/5'">
+          <td class="py-3 px-2 text-gray-600 text-theme-sm dark:text-gray-400 font-medium">
             {{ (currentPage - 1) * itemsPerPage + $index + 1 }}
           </td>
-          <td class="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+          <td class="py-3 px-2 text-gray-700 text-theme-sm dark:text-gray-300 font-medium">
             {{ member.regNo }}
           </td>
-          <td class="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+          <td class="py-3 px-2 text-gray-700 text-theme-sm dark:text-gray-300 font-medium">
             {{ member.name }}
           </td>
-          <td class="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+          <td class="py-3 px-2 text-gray-500 text-theme-sm dark:text-gray-400">
             {{ member.joiningDate | date:'dd/MM/yyyy' }}
           </td>
         </tr>

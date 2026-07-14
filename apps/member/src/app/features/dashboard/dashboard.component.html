@@ -1,8 +1,14 @@
+<div class="mb-4">
+  <h1 class="text-xl sm:text-2xl font-bold text-[#FF6F00] bg-[#FF6F00]/10 rounded-xl px-4 py-3 sm:px-6 sm:py-4 shadow-lg">
+    Dashboard
+  </h1>
+</div>
+
 <div class="flex items-center justify-between mb-4">
   <div></div>
   <button
     (click)="openPanel()"
-    class="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-black shadow-lg shadow-accent/20 transition hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface"
+    class="inline-flex items-center gap-2 rounded-xl bg-[#FFD000] px-4 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-black shadow-lg shadow-accent/20 transition hover:bg-[#FFD000]/90 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-surface"
   >
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <line x1="12" y1="5" x2="12" y2="19" />
@@ -12,38 +18,63 @@
   </button>
 </div>
 
-<div class="grid grid-cols-12 gap-4 md:gap-6">
-  <div class="col-span-12 space-y-12 xl:col-span-12">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+  <div class="group rounded-2xl border border-cyan-200 bg-gradient-to-br from-cyan-50 to-white dark:from-cyan-900/20 dark:to-surface p-4 sm:p-5 flex items-center gap-4 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 hover:-translate-y-1">
+    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-500 transition-all duration-300 group-hover:bg-cyan-500 group-hover:text-white group-hover:scale-110 group-hover:rotate-6">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    </div>
     <div>
+      <p class="text-xs sm:text-sm text-cyan-600 font-medium">Total Members</p>
+      <p class="text-xl sm:text-2xl font-bold text-primary-fg">59</p>
+    </div>
+  </div>
+
+  <div class="group rounded-2xl border border-green-200 bg-gradient-to-br from-green-50 to-white dark:from-green-900/20 dark:to-surface p-4 sm:p-5 flex items-center gap-4 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20 hover:-translate-y-1">
+    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-500/10 text-green-500 transition-all duration-300 group-hover:bg-green-500 group-hover:text-white group-hover:scale-110 group-hover:-rotate-6">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <line x1="19" y1="8" x2="19" y2="14" />
+        <line x1="22" y1="11" x2="16" y2="11" />
+      </svg>
+    </div>
+    <div>
+      <p class="text-xs sm:text-sm text-green-600 font-medium">Today's Members</p>
+      <p class="text-xl sm:text-2xl font-bold text-primary-fg">85</p>
+    </div>
+  </div>
+
+  <div class="group rounded-2xl border border-yellow-200 bg-gradient-to-br from-yellow-50 to-white dark:from-yellow-900/20 dark:to-surface p-4 sm:p-5 flex items-center gap-4 transition-all duration-300 hover:shadow-lg hover:shadow-[#FFD000]/30 hover:-translate-y-1">
+    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#FFD000]/10 text-[#FFD000] transition-all duration-300 group-hover:bg-[#FFD000] group-hover:text-white group-hover:scale-110 group-hover:rotate-6">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="1" x2="12" y2="23" />
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </svg>
+    </div>
+    <div>
+      <p class="text-xs sm:text-sm text-yellow-600 font-medium">Total Live Board</p>
+      <p class="text-xl sm:text-2xl font-bold text-primary-fg">4,380.00 <span class="text-sm font-medium text-secondary-fg">INR</span></p>
+    </div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 md:gap-6">
+  <div class="col-span-1 sm:col-span-2 lg:col-span-12">
+    <div class="w-full">
       <app-distributor-details />
     </div>
   </div>
 
-  <div class="col-span-12 xl:col-span-7 flex">
+  <div class="col-span-1 sm:col-span-2 lg:col-span-12">
     <div
       class="rounded-2xl border border-default bg-surface w-full"
     >
       <app-sponsor-members />
-    </div>
-  </div>
-
-  <div class="col-span-12 xl:col-span-5">
-    <div
-      class="overflow-hidden rounded-2xl border border-default bg-surface px-4 pb-3 pt-4 sm:px-6"
-    >
-      <div
-        class="flex flex-col gap-2 mb-4 sm:flex-row sm:items-center sm:justify-between"
-      >
-        <div>
-          <h3 class="text-lg font-semibold text-primary-fg">
-            Advertising
-          </h3>
-        </div>
-      </div>
-
-      <div class="max-w-full overflow-x-auto flex justify-center">
-        <img src="/assets/logo.jpeg" alt="" class="h-20 w-auto" />
-      </div>
     </div>
   </div>
 </div>
