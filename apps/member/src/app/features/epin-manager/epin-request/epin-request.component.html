@@ -229,14 +229,28 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 @if (paymentTypeId === 2) {
                   <div class="relative">
-                    <input
-                      id="upiId"
-                      type="text"
-                      [value]="filteredBankAccounts[0]?.accountNo ?? ''"
-                      readonly
-                      class="peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 bg-gray-50 dark:bg-white/5"
-                    />
-                    <label for="upiId" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-focus:text-brand-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-4">UPI Id <span class="text-red-500">*</span></label>
+                    <select
+                      [(ngModel)]="selectedBankAccNo"
+                      name="upiSelect"
+                      (ngModelChange)="onBankChange($event)"
+                      #upiSelect="ngModel"
+                      required
+                      id="upiSelect"
+                      [class]="upiSelect.invalid && upiSelect.touched
+                        ? 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-red-400 bg-red-500/5 focus:border-red-400 focus:ring-red-400/20'
+                        : 'peer block w-full appearance-none rounded-xl border px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:outline-none focus:ring-2 border-gray-300 focus:border-brand-500 focus:ring-brand-500/20 bg-transparent'"
+                    >
+                      @for (upi of filteredBankAccounts; track upi.accountNo) {
+                        <option [value]="upi.accountNo">{{ upi.accountNo }}</option>
+                      }
+                    </select>
+                    <label for="upiSelect" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-150 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] peer-focus:text-brand-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-4">UPI Id <span class="text-red-500">*</span></label>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
+                      <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                    @if (upiSelect.invalid && upiSelect.touched) {
+                      <p class="mt-1 text-xs text-red-500">UPI is required</p>
+                    }
                   </div>
                 } @else {
                   <div class="relative">
@@ -359,12 +373,21 @@
             </div>
             @if (paymentMode === 'UPI' && amount > 0) {
               <ui-payment-qr
-                [upiId]="filteredBankAccounts[0]?.accountNo ?? ''"
+                [upiId]="selectedBankAccNo ?? filteredBankAccounts[0]?.accountNo ?? ''"
                 [merchantName]="companyName"
                 [amount]="amount"
                 [transactionNote]="'Kit Order - ' + (selectedKit?.kitCode || '')"
                 [compact]="true"
               />
+              @if (selectedBank) {
+                <div class="w-full mt-2 p-2 bg-gray-50 rounded-lg border border-gray-100 text-center">
+                  <p class="text-[10px] text-gray-400">Paying to</p>
+                  <p class="text-xs font-bold text-gray-700">{{ selectedBank.bankName }}</p>
+                  @if (selectedBank.branchName) {
+                    <p class="text-[10px] text-gray-400">{{ selectedBank.branchName }}</p>
+                  }
+                </div>
+              }
             } @else if (amount > 0) {
               <div class="flex flex-col items-center justify-center py-6 text-center text-gray-400">
                 <i class="fa fa-qrcode text-3xl mb-2"></i>

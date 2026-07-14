@@ -205,6 +205,7 @@ export class EpinRequestComponent implements OnInit {
     const bank = this.bankAccounts.find(b => b.accountNo === accNo);
     this.selectedBank = bank ?? null;
     this.accountNo = bank ? bank.accountNo : '';
+    this.cdr.markForCheck();
   }
 
   maskAccountNo(accNo: string): string {
