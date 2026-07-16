@@ -1,0 +1,130 @@
+<div class="space-y-6">
+
+  <!-- Page Heading -->
+  <div class="rounded-2xl bg-gradient-to-r from-[#FF6F00] to-[#E65100] p-5 sm:p-6 lg:p-8">
+    <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight">Debit from Account</h2>
+    <p class="text-sm sm:text-base text-white/80 mt-1">Debit Balance from Member Account</p>
+  </div>
+
+  <!-- Associate Details Card -->
+  <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] w-full p-5 lg:p-6">
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+      <div class="w-full">
+        <h4 class="text-base sm:text-lg font-semibold text-[#FF6F00] bg-[#FF6F00]/10 inline-block px-3 py-1 rounded-lg mb-4 sm:mb-6">
+          Associate Details
+        </h4>
+
+        <!-- Search Bar -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-end gap-3 mb-6">
+          <div class="relative flex-1">
+            <label class="mb-1.5 block text-sm font-semibold text-gray-700 dark:text-gray-300 tracking-wide">Login ID</label>
+            <input type="text" [(ngModel)]="userName"
+              (keyup.enter)="onSearch()"
+              class="block w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-800 dark:text-white placeholder:text-gray-400 transition-all duration-200 hover:border-[#FF6F00] hover:shadow-sm focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
+              placeholder="Enter login ID"
+            />
+          </div>
+          <button (click)="onSearch()" [disabled]="isLoading || !userName.trim()"
+            class="rounded-xl bg-[#FF6F00] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#E65100] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/40 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap">
+            @if (isLoading) {
+              <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+              Searching...
+            } @else {
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              Search
+            }
+          </button>
+        </div>
+
+        @if (errorMessage) {
+          <div class="mb-4 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 p-3 text-sm text-red-600 dark:text-red-400">
+            {{ errorMessage }}
+          </div>
+        }
+
+        @if (userData) {
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">User Name</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ val(userData.loginId) }}</p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Name</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ fullName }}</p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Date Of Joining</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ (userData.registrationDate | date:'dd/MM/yyyy') || '—' }}</p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Email</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ val(userData.emailId) }}</p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Primary Contact</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ val(userData.primaryContactNumber) }}</p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Sponsor Name</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">
+                @if (userData.sponsorDetails) {
+                  {{ [userData.sponsorDetails?.title, userData.sponsorDetails?.fName, userData.sponsorDetails?.lName].filter(v => v?.trim()).join(' ') }}
+                } @else {
+                  —
+                }
+              </p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Sponsor ID</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ val(userData.sponsorDetails?.loginId) }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Debit Form Card -->
+  @if (userData) {
+    <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] w-full p-5 lg:p-6">
+      <h4 class="text-base sm:text-lg font-semibold text-[#FF6F00] bg-[#FF6F00]/10 inline-block px-3 py-1 rounded-lg mb-4 sm:mb-6">
+        Debit from Account
+      </h4>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div>
+          <label class="mb-1.5 block text-sm font-semibold text-gray-700 dark:text-gray-300 tracking-wide">Current Balance</label>
+          <input type="text" [(ngModel)]="currentBalance" readonly
+            class="block w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 px-4 py-2.5 text-sm text-gray-800 dark:text-white cursor-not-allowed"
+          />
+        </div>
+        <div>
+          <label class="mb-1.5 block text-sm font-semibold text-gray-700 dark:text-gray-300 tracking-wide">Amount <span class="text-red-400">*</span></label>
+          <input type="number" [(ngModel)]="amount"
+            class="block w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-800 dark:text-white placeholder:text-gray-400 transition-all duration-200 hover:border-[#FF6F00] hover:shadow-sm focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
+            placeholder="Enter amount"
+          />
+        </div>
+        <div>
+          <label class="mb-1.5 block text-sm font-semibold text-gray-700 dark:text-gray-300 tracking-wide">Remark</label>
+          <input type="text" [(ngModel)]="remark"
+            class="block w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-800 dark:text-white placeholder:text-gray-400 transition-all duration-200 hover:border-[#FF6F00] hover:shadow-sm focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
+            placeholder="Enter remark"
+          />
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3 mt-6">
+        <button (click)="onDebit()" [disabled]="!amount"
+          class="rounded-xl bg-[#FF6F00] px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#E65100] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/40 disabled:opacity-50 disabled:cursor-not-allowed">
+          Debit
+        </button>
+        <button (click)="onCancel()"
+          class="rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-6 py-2.5 text-sm font-semibold text-gray-700 dark:text-gray-300 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-300/40">
+          Cancel
+        </button>
+      </div>
+    </div>
+  }
+
+</div>

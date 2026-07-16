@@ -1,0 +1,192 @@
+<div class="space-y-6">
+
+  <!-- Page Heading -->
+  <div class="rounded-2xl bg-gradient-to-r from-[#FF6F00] to-[#E65100] p-5 sm:p-6 lg:p-8">
+    <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight">Transaction History</h2>
+    <p class="text-sm sm:text-base text-white/80 mt-1">View Member Wallet Transaction History</p>
+  </div>
+
+  <!-- Associate Details Card -->
+  <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] w-full p-5 lg:p-6">
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+      <div class="w-full">
+        <h4 class="text-base sm:text-lg font-semibold text-[#FF6F00] bg-[#FF6F00]/10 inline-block px-3 py-1 rounded-lg mb-4 sm:mb-6">
+          Associate Details
+        </h4>
+
+        <!-- Search Bar -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-end gap-3 mb-6">
+          <div class="relative flex-1">
+            <label class="mb-1.5 block text-sm font-semibold text-gray-700 dark:text-gray-300 tracking-wide">Login ID</label>
+            <input type="text" [(ngModel)]="userName"
+              (keyup.enter)="onSearch()"
+              class="block w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-800 dark:text-white placeholder:text-gray-400 transition-all duration-200 hover:border-[#FF6F00] hover:shadow-sm focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
+              placeholder="Enter login ID"
+            />
+          </div>
+          <button (click)="onSearch()" [disabled]="isLoading || !userName.trim()"
+            class="rounded-xl bg-[#FF6F00] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#E65100] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/40 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 whitespace-nowrap">
+            @if (isLoading) {
+              <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+              Searching...
+            } @else {
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              Search
+            }
+          </button>
+        </div>
+
+        @if (errorMessage) {
+          <div class="mb-4 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 p-3 text-sm text-red-600 dark:text-red-400">
+            {{ errorMessage }}
+          </div>
+        }
+
+        @if (userData) {
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">User Name</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ val(userData.loginId) }}</p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Name</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ fullName }}</p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Date Of Joining</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ (userData.registrationDate | date:'dd/MM/yyyy') || '—' }}</p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Email</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ val(userData.emailId) }}</p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Primary Contact</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ val(userData.primaryContactNumber) }}</p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Sponsor Name</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">
+                @if (userData.sponsorDetails) {
+                  {{ [userData.sponsorDetails?.title, userData.sponsorDetails?.fName, userData.sponsorDetails?.lName].filter(v => v?.trim()).join(' ') }}
+                } @else {
+                  —
+                }
+              </p>
+            </div>
+            <div>
+              <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Sponsor ID</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ val(userData.sponsorDetails?.loginId) }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Transaction History Card -->
+  @if (userData) {
+    <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] w-full p-5 lg:p-6">
+      <h4 class="text-base sm:text-lg font-semibold text-[#FF6F00] bg-[#FF6F00]/10 inline-block px-3 py-1 rounded-lg mb-4 sm:mb-6">
+        Transaction History
+      </h4>
+
+      @if (transactions.length > 0) {
+        <!-- Mobile Strip List View -->
+        <div class="divide-y divide-gray-100 dark:divide-gray-700/50 md:hidden">
+          @for (tx of paginatedTransactions; track $index; let i = $index) {
+            <div class="flex items-start gap-3 px-4 py-3.5"
+              [ngClass]="tx.crdb === 'C' ? 'border-l-[3px] border-l-green-400 dark:border-l-green-500' : 'border-l-[3px] border-l-red-400 dark:border-l-red-500'">
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2 mb-1">
+                  <p class="text-sm font-semibold text-gray-800 dark:text-white/90 truncate">{{ val(tx.remark) || '—' }}</p>
+                  <span class="shrink-0 inline-block rounded-md px-2 py-0.5 text-[11px] font-bold leading-tight"
+                    [ngClass]="tx.crdb === 'C' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'">
+                    {{ val(tx.transactionType) }}
+                  </span>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-1.5">{{ (tx.transactionDate | date:'dd/MM/yyyy hh:mm a') || '—' }}</p>
+                <div class="flex items-center gap-3">
+                  @if (tx.credit) {
+                    <span class="text-sm font-bold text-green-600 dark:text-green-400">+{{ tx.credit }}</span>
+                  }
+                  @if (tx.debit) {
+                    <span class="text-sm font-bold text-red-600 dark:text-red-400">-{{ tx.debit }}</span>
+                  }
+                  @if (!tx.credit && !tx.debit) {
+                    <span class="text-sm text-gray-400 dark:text-gray-500">—</span>
+                  }
+                  <span class="ml-auto text-[10px] font-medium text-gray-400 dark:text-gray-500">#{{ (currentPage - 1) * itemsPerPage + i + 1 }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Desktop Table View -->
+        <div class="hidden overflow-x-auto md:block">
+          <table class="w-full text-left text-sm">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th class="px-4 py-3 font-semibold text-gray-600 dark:text-gray-300">#</th>
+                <th class="px-4 py-3 font-semibold text-gray-600 dark:text-gray-300">Date</th>
+                <th class="px-4 py-3 font-semibold text-gray-600 dark:text-gray-300">Transaction Type</th>
+                <th class="px-4 py-3 font-semibold text-gray-600 dark:text-gray-300 text-right">Credit</th>
+                <th class="px-4 py-3 font-semibold text-gray-600 dark:text-gray-300 text-right">Debit</th>
+                <th class="px-4 py-3 font-semibold text-gray-600 dark:text-gray-300">Remark</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (tx of paginatedTransactions; track $index; let i = $index) {
+                <tr class="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors">
+                  <td class="px-4 py-3 text-gray-500 dark:text-gray-400">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                  <td class="px-4 py-3 text-gray-800 dark:text-white/90 whitespace-nowrap">{{ (tx.transactionDate | date:'dd/MM/yyyy hh:mm a') || '—' }}</td>
+                  <td class="px-4 py-3">
+                    <span class="inline-block rounded-lg px-3 py-1 text-xs font-semibold"
+                      [ngClass]="tx.crdb === 'C' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'">
+                      {{ val(tx.transactionType) }}
+                    </span>
+                  </td>
+                  <td class="px-4 py-3 text-right font-medium text-green-600 dark:text-green-400">
+                    {{ tx.credit ? ('+' + tx.credit) : '—' }}
+                  </td>
+                  <td class="px-4 py-3 text-right font-medium text-red-600 dark:text-red-400">
+                    {{ tx.debit ? ('-' + tx.debit) : '—' }}
+                  </td>
+                  <td class="px-4 py-3 text-gray-600 dark:text-gray-400">{{ val(tx.remark) }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        @if (totalPages > 1) {
+          <div class="flex flex-col gap-3 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 sm:flex-row sm:items-center sm:justify-between">
+            <p class="text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
+              Showing {{ (currentPage - 1) * itemsPerPage + 1 }}–{{ currentPage * itemsPerPage > transactions.length ? transactions.length : currentPage * itemsPerPage }} of {{ transactions.length }}
+            </p>
+            <div class="flex items-center justify-center gap-2">
+              <button (click)="prevPage()" [disabled]="currentPage === 1"
+                class="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 transition-all hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span class="hidden sm:inline">Previous</span>
+                <svg class="h-4 w-4 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              <span class="min-w-[60px] text-center text-sm font-medium text-gray-700 dark:text-gray-300">{{ currentPage }} / {{ totalPages }}</span>
+              <button (click)="nextPage()" [disabled]="currentPage === totalPages"
+                class="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 transition-all hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                <span class="hidden sm:inline">Next</span>
+                <svg class="h-4 w-4 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+        }
+      } @else {
+        <div class="text-center py-8 text-gray-400 dark:text-gray-500 text-sm">
+          No transactions found.
+        </div>
+      }
+    </div>
+  }
+
+</div>

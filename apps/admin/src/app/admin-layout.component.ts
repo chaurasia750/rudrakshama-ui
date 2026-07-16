@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AppLayoutConfig } from '@shared';
-import { DASHBOARD_ICON, INVENTORY_ICON, LEADS_ICON, MASTER_ICON, MEMBERS_ICON, TREE_ICON, USERS_ICON, EPIN_ICON } from './menu-icons';
+import { DASHBOARD_ICON, INVENTORY_ICON, LEADS_ICON, MASTER_ICON, MEMBERS_ICON, TREE_ICON, USERS_ICON, EPIN_ICON, FINANCIAL_ICON, WALLET_ICON } from './menu-icons';
 import { AuthService } from '@libs/shared/auth';
 
 @Component({
@@ -53,6 +53,14 @@ export class AdminLayoutComponent {
       ]},
       { label: 'Recent Orders', section: 'MANAGEMENT', icon: EPIN_ICON, subItems: [
         { name: 'Recent Orders', path: '/admin/epin-manager/requested-list' },
+      ]},
+      { label: 'Financial Manager', section: 'MANAGEMENT', icon: FINANCIAL_ICON, subItems: [
+        { name: 'Deposit in Account', path: '/admin/financial-manager/deposit-in-account' },
+        { name: 'Debit from Account', path: '/admin/financial-manager/debit-from-account' },
+      ]},
+      { label: 'Currency Wallet', section: 'MANAGEMENT', icon: WALLET_ICON, subItems: [
+        { name: 'E-Wallet', path: '/admin/currency-wallet/ewallet' },
+        { name: 'Transaction History', path: '/admin/currency-wallet/transaction-history' },
       ]},
       { label: 'Users', route: '/admin/users', section: 'MANAGEMENT', icon: USERS_ICON },
     ],

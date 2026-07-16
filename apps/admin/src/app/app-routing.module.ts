@@ -63,6 +63,20 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'financial-manager',
+        loadChildren: () =>
+          import('./modules/financial-manager/financial-manager.module').then(
+            (m) => m.FinancialManagerModule
+          ),
+      },
+      {
+        path: 'currency-wallet',
+        loadChildren: () =>
+          import('./modules/currency-wallet/currency-wallet.module').then(
+            (m) => m.CurrencyWalletModule
+          ),
+      },
+      {
         path: 'sponsor-new',
         loadComponent: () =>
           import('./features/sponsor-new/sponsor-new.component').then(

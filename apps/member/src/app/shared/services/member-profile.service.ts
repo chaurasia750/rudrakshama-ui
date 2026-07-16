@@ -76,6 +76,12 @@ export class MemberProfileService {
       .pipe(map((response) => this.normalizeProfileResponse(response)));
   }
 
+  getProfileByLoginId(loginId: string): Observable<MemberProfile> {
+    return this.http
+      .get<unknown>(`${apiConfig.baseUrl}/admin/member/profile`, { params: { loginId } })
+      .pipe(map((response) => this.normalizeProfileResponse(response)));
+  }
+
   updateProfile(profile: UpdateProfilePayload): Observable<{ success: boolean }> {
     return this.http
       .put<{ success: boolean }>(`${this.baseUrl}/update-profile`, profile, { withCredentials: true });
