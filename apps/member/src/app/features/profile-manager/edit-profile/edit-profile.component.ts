@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { finalize, take } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { finalize, switchMap, take, catchError, of } from 'rxjs';
+import { apiConfig } from '@shared/environments/api.dev';
 import {
   SharedAddressFormComponent,
   SharedTitleSelectComponent,
 } from '@shared/ui/src';
-import { apiConfig } from '@shared/environments/api.dev';
 import { PageBreadcrumbComponent } from '../../../shared/components/common/page-breadcrumb/page-breadcrumb.component';
 import { MemberProfile, MemberProfileService, UpdateProfilePayload } from '../../../shared/services/member-profile.service';
 
@@ -27,6 +28,9 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   updateSuccess = false;
   updateError = '';
   profile: MemberProfile | null = null;
+  bankData: Record<string, any> | null = null;
+  bankId: number | null = null;
+  isBankLoading = false;
 
   @ViewChildren('formInput') formInputs!: QueryList<ElementRef<HTMLInputElement>>;
 
@@ -47,11 +51,18 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
       state: ['', Validators.required],
       postalCode: ['', Validators.required],
     }),
+    bankDetails: this.fb.group({
+      accountNumber: [''],
+      bankName: [''],
+      ifscCode: [''],
+      branch: [''],
+    }),
   });
 
   constructor(
     private readonly fb: FormBuilder,
     private readonly memberProfileService: MemberProfileService,
+    private readonly http: HttpClient,
     private readonly cdr: ChangeDetectorRef
   ) {}
 
@@ -59,6 +70,10 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
 
   get addressGroup() {
     return this.editForm.controls.address;
+  }
+
+  get bankGroup() {
+    return this.editForm.controls.bankDetails;
   }
 
   ngOnInit(): void {
@@ -71,20 +86,59 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
 
   private loadProfile(): void {
     this.isLoading = true;
-    this.memberProfileService.getProfile().pipe(take(1)).subscribe({
-      next: (p) => {
+    this.memberProfileService.getProfile().pipe(
+      take(1),
+      switchMap((p) => {
         this.profile = p;
         this.populateForm(p);
         this.isLoading = false;
         this.cdr.markForCheck();
-       // this.syncNativeInputs();
-      },
-      error: (err) => {
+        return this.loadBankDetails(p.id);
+      }),
+      catchError((err) => {
         console.error('[EditProfile] Failed to load profile:', err);
         this.isLoading = false;
         this.cdr.markForCheck();
+        return of(void 0);
+      })
+    ).subscribe();
+  }
+
+  private loadBankDetails(memberId: number) {
+    this.isBankLoading = true;
+    return this.http.get<any>(`https://localhost:7048/master/member-bank-account/${memberId}`, { withCredentials: true }).pipe(
+      take(1),
+      switchMap((res) => {
+        const raw = res?.data ?? res;
+        const bank = Array.isArray(raw) ? raw[0] : raw;
+        console.log('[EditProfile] Bank Details Response:', JSON.stringify(bank, null, 2));
+        this.bankData = bank;
+        this.bankId = bank?.id ?? null;
+        this.populateBankForm(bank);
+        this.isBankLoading = false;
+        this.cdr.markForCheck();
+        return of(void 0);
+      }),
+      catchError((err) => {
+        console.error('[EditProfile] Bank Details API error:', err);
+        this.bankData = null;
+        this.isBankLoading = false;
+        this.cdr.markForCheck();
+        return of(void 0);
+      })
+    );
+  }
+
+  private populateBankForm(bank: any): void {
+    if (!bank) return;
+    this.editForm.patchValue({
+      bankDetails: {
+        accountNumber: bank.accountNo ?? '',
+        bankName: bank.bankName ?? '',
+        ifscCode: bank.ifscCode ?? '',
+        branch: bank.address ?? '',
       },
-    });
+    }, { emitEvent: false });
   }
 
   private populateForm(profile: MemberProfile): void {

@@ -33,10 +33,13 @@ function isApiResponse(body: unknown): body is ApiResponse<unknown> {
   );
 }
 
+const AUTH_ENDPOINT_RE = /\/auth(\/|$)/;
+
 /**
  * Interceptor that:
  * 1. Unwraps ApiResponse<T> — components receive `data` directly instead of the full wrapper
  * 2. Shows backend feedback toasts when `isFeedbackSet === true`
+ * 3. Throws an HttpErrorResponse when backend returns non-zero errorCode
  *
  * Binary (Blob/ArrayBuffer) and PDF responses are passed through unchanged.
  */
@@ -51,6 +54,11 @@ export class HttpResponseInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       map((event) => {
         if (!(event instanceof HttpResponse)) {
+          return event;
+        }
+
+        // Skip auth endpoints — AuthApiService handles its own error mapping
+        if (AUTH_ENDPOINT_RE.test(request.url)) {
           return event;
         }
 
@@ -80,6 +88,12 @@ export class HttpResponseInterceptor implements HttpInterceptor {
           } else if (typeof msg === 'string' && msg.length > 0) {
             this.toastr.info(msg);
           }
+        }
+
+        // Backend error — throw so catchError operators can handle it
+        if (body.errorCode !== 0 && body.errorCode != null) {
+          const errorMsg = (body.message as any)?.message ?? body.data ?? 'Request failed';
+          throw { status: 400, message: errorMsg, error: body };
         }
 
         // Unwrap: return only `data` to the caller

@@ -279,12 +279,15 @@ export class AuthStore {
       };
     }
 
+    // statusText contains the actual backend error message from AuthApiService
+    const backendMsg = error.statusText || error.message;
+
     if (error.status === 401) {
       return {
         status: 401,
         code: 'INVALID_CREDENTIALS',
-        message: error.message,
-        userMessage: 'Invalid email or password.',
+        message: backendMsg,
+        userMessage: backendMsg || 'Invalid username or password.',
       };
     }
 
@@ -292,7 +295,7 @@ export class AuthStore {
       return {
         status: 403,
         code: 'ACCOUNT_DISABLED',
-        message: error.message,
+        message: backendMsg,
         userMessage: 'Your account is disabled. Please contact support.',
       };
     }
@@ -301,7 +304,7 @@ export class AuthStore {
       return {
         status: error.status,
         code: 'SERVER_ERROR',
-        message: error.message,
+        message: backendMsg,
         userMessage: 'System unavailable. Please try again later.',
       };
     }
@@ -309,7 +312,7 @@ export class AuthStore {
     return {
       status: error.status,
       code: 'UNKNOWN',
-      message: error.message,
+      message: backendMsg,
       userMessage: 'Unable to complete authentication request.',
     };
   }

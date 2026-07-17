@@ -142,18 +142,19 @@ export class LoginComponent implements OnInit, OnDestroy {
    * Map backend errors to user-friendly messages
    */
   private handleLoginError(error: any): void {
-    const status = error.status;
+    // Prefer backend's actual error message (set as statusText by AuthApiService)
+    const backendMsg = error?.statusText || error?.error?.message?.message || error?.error?.data;
 
-    if (status === 401) {
-      this.errorMessage = 'Invalid email or password';
-    } else if (status === 403) {
+    if (error.status === 401) {
+      this.errorMessage = backendMsg || 'Invalid username or password';
+    } else if (error.status === 403) {
       this.errorMessage = 'Your account is disabled. Please contact support';
-    } else if (status >= 500) {
+    } else if (error.status >= 500) {
       this.errorMessage = 'System unavailable. Please try again later';
-    } else if (status === 400) {
-      this.errorMessage = 'Please check your email and password';
+    } else if (error.status === 0) {
+      this.errorMessage = 'Unable to connect. Please check your network';
     } else {
-      this.errorMessage = 'An error occurred. Please try again';
+      this.errorMessage = backendMsg || 'An error occurred. Please try again';
     }
   }
 

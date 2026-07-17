@@ -210,7 +210,73 @@
         </div>
       </div>
 
-      <!-- Submit -->
+      <!-- ════════════ BANK DETAILS ════════════ -->
+      <div class="rounded-2xl border border-default bg-surface p-5 lg:p-6">
+        <h4 class="text-lg font-semibold text-primary-fg mb-6">Bank Details</h4>
+        <div class="flex items-center gap-3 py-1 mb-4">
+          <div class="h-px flex-1 bg-default"></div>
+          <span class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary-fg/50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+            </svg>
+            Banking Information
+          </span>
+          <div class="h-px flex-1 bg-default"></div>
+        </div>
+
+        @if (isBankLoading) {
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 animate-pulse">
+            <div class="h-12 bg-default rounded-xl"></div>
+            <div class="h-12 bg-default rounded-xl"></div>
+            <div class="h-12 bg-default rounded-xl"></div>
+            <div class="h-12 bg-default rounded-xl"></div>
+            <div class="h-12 bg-default rounded-xl"></div>
+            <div class="h-12 bg-default rounded-xl"></div>
+          </div>
+        } @else {
+          <div formGroupName="bankDetails" class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <!-- Account Number -->
+          <div class="relative">
+            <input id="bankAccountNo" type="text" formControlName="accountNumber" placeholder=" "
+              class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
+            />
+            <label for="bankAccountNo" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FF6F00]">
+              Account Number
+            </label>
+          </div>
+
+          <!-- Bank Name -->
+          <div class="relative">
+            <input id="bankName" type="text" formControlName="bankName" placeholder=" "
+              class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
+            />
+            <label for="bankName" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FF6F00]">
+              Bank Name
+            </label>
+          </div>
+
+          <!-- IFSC Code -->
+          <div class="relative">
+            <input id="bankIfsc" type="text" formControlName="ifscCode" placeholder=" " maxlength="11"
+              class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 text-sm uppercase tracking-wider text-primary-fg transition-colors focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
+            />
+            <label for="bankIfsc" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FF6F00]">
+              IFSC Code
+            </label>
+          </div>
+
+          <!-- Branch / Address -->
+          <div class="relative">
+            <input id="bankBranch" type="text" formControlName="branch" placeholder=" "
+              class="peer block w-full appearance-none rounded-xl border border-default bg-surface px-4 pb-2.5 pt-5 text-sm text-primary-fg transition-colors focus:border-[#FF6F00] focus:outline-none focus:ring-2 focus:ring-[#FF6F00]/20"
+            />
+            <label for="bankBranch" class="pointer-events-none absolute left-4 top-1 z-10 origin-[0] scale-75 text-xs text-primary-fg/50 transition-all duration-200 peer-placeholder-shown:top-3.5 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary-fg/50 peer-focus:top-1 peer-focus:scale-75 peer-focus:text-xs peer-focus:text-[#FF6F00]">
+              Branch / Address
+            </label>
+          </div>
+        </div>
+        }
+      </div>
       <div class="flex justify-end pt-2">
         <button type="submit" [disabled]="isSaving" [attr.aria-busy]="isSaving"
           class="rounded-xl bg-brand-500 px-6 py-3 text-sm font-semibold text-black shadow-lg shadow-brand-500/20 transition hover:bg-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 flex items-center justify-center gap-2"

@@ -1,1 +1,138 @@
-<p>ewallet works!</p>
+<div class="space-y-6">
+
+  <!-- Page Heading -->
+  <div class="rounded-2xl bg-gradient-to-r from-[#FF6F00] to-[#E65100] p-5 sm:p-6 lg:p-8">
+    <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight">E-Wallet</h2>
+    <p class="text-sm sm:text-base text-white/80 mt-1">View Your E-Wallet Details</p>
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoading) {
+    <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-10 text-center">
+      <svg class="animate-spin h-8 w-8 mx-auto text-[#FF6F00]" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+      </svg>
+      <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">Loading wallet data...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (profileError) {
+    <div class="rounded-2xl border border-red-200 bg-red-50 dark:bg-red-900/20 p-4 text-sm text-red-600 dark:text-red-400">
+      {{ profileError }}
+    </div>
+  }
+
+  <!-- Wallet Cards -->
+  @if (profileData && !isLoading) {
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+      <!-- In Account Card -->
+      <div class="rounded-xl border border-green-200 bg-green-50/50 p-4 dark:border-green-800/30 dark:bg-green-900/10">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-green-100 dark:bg-green-900/30">
+            <svg class="h-4 w-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+          <h5 class="text-sm font-bold text-green-800 dark:text-green-300">In Account</h5>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600 dark:text-gray-400">Level Income</span>
+            <span class="text-sm font-semibold text-gray-800 dark:text-white/90">{{ getFieldValue('levelIncome') }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600 dark:text-gray-400">Direct Income</span>
+            <span class="text-sm font-semibold text-gray-800 dark:text-white/90">{{ getFieldValue('directIncome') }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600 dark:text-gray-400">Deposit By Admin</span>
+            <span class="text-sm font-semibold text-gray-800 dark:text-white/90">{{ getFieldValue('depositByAdmin') }}</span>
+          </div>
+          <div class="border-t border-green-200 dark:border-green-800/30 pt-2 mt-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-green-700 dark:text-green-400">Total In Amount</span>
+              <span class="text-sm font-bold text-green-600 dark:text-green-400">{{ getFieldValue('totalInAmount') }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Out Account Card -->
+      <div class="rounded-xl border border-red-200 bg-red-50/50 p-4 dark:border-red-800/30 dark:bg-red-900/10">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-red-100 dark:bg-red-900/30">
+            <svg class="h-4 w-4 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+            </svg>
+          </div>
+          <h5 class="text-sm font-bold text-red-800 dark:text-red-300">Out Account</h5>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600 dark:text-gray-400">Deduct By Admin</span>
+            <span class="text-sm font-semibold text-gray-800 dark:text-white/90">{{ getFieldValue('deductByAdmin') }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600 dark:text-gray-400">TDS</span>
+            <span class="text-sm font-semibold text-gray-800 dark:text-white/90">{{ getFieldValue('tds') }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600 dark:text-gray-400">Admin Charge</span>
+            <span class="text-sm font-semibold text-gray-800 dark:text-white/90">{{ getFieldValue('adminCharge') }}</span>
+          </div>
+          <div class="border-t border-red-200 dark:border-red-800/30 pt-2 mt-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-red-700 dark:text-red-400">Total Out Amount</span>
+              <span class="text-sm font-bold text-red-600 dark:text-red-400">{{ getFieldValue('totalOutAmount') }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lock Amount Card -->
+      <div class="rounded-xl border border-amber-200 bg-amber-50/50 p-4 dark:border-amber-800/30 dark:bg-amber-900/10">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100 dark:bg-amber-900/30">
+            <svg class="h-4 w-4 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <h5 class="text-sm font-bold text-amber-800 dark:text-amber-300">Lock Amount</h5>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600 dark:text-gray-400">Total Lock Amount</span>
+            <span class="text-sm font-semibold text-gray-800 dark:text-white/90">{{ getFieldValue('totalLockAmount') }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Balance Card -->
+      <div class="rounded-xl border border-[#FF6F00]/20 bg-[#FF6F00]/5 p-4 dark:border-[#FF6F00]/30 dark:bg-[#FF6F00]/10">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-[#FF6F00]/10 dark:bg-[#FF6F00]/20">
+            <svg class="h-4 w-4 text-[#FF6F00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <h5 class="text-sm font-bold text-[#FF6F00]">Balance</h5>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600 dark:text-gray-400">Available Balance</span>
+            <span class="text-sm font-bold text-[#FF6F00]">{{ getFieldValue('availableBalance') }}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-600 dark:text-gray-400">Ledger Balance</span>
+            <span class="text-sm font-semibold text-gray-800 dark:text-white/90">{{ getFieldValue('ledgerBalance') }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  }
+
+</div>

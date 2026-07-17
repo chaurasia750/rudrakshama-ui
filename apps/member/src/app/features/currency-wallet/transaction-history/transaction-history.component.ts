@@ -1,167 +1,99 @@
-import { Component } from "@angular/core";
-import { PageBreadcrumbComponent } from "../../../shared/components/common/page-breadcrumb/page-breadcrumb.component";
-import { DistributorDetailsComponent } from "../../../shared/components/distributor-details/distributor-details.component";
-import { CommonModule } from "@angular/common";
-import { ButtonComponent } from "../../../shared/components/ui/button/button.component";
-
-interface Transaction {
-  sn: number;
-  date: string;
-  payoutNo: string;
-  particulars: string;
-  debit: string;
-  credit: string;
-}
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CurrencyWalletService, Transaction } from '../currency-wallet.service';
+import { MemberProfileService, MemberProfile } from '../../../shared/services/member-profile.service';
 
 @Component({
-  selector: "app-transaction-history",
-  imports: [
-    CommonModule,
-    PageBreadcrumbComponent,
-    ButtonComponent,
-    DistributorDetailsComponent,
-  ],
-  templateUrl: "./transaction-history.component.html",
+  selector: 'member-transaction-history',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './transaction-history.component.html',
 })
-export class TransactionHistoryComponent {
-  transactionData: Transaction[] = [
-    {
-      sn: 1,
-      payoutNo: "BIT000001",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 2,
-      payoutNo: "BIT000002",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 3,
-      payoutNo: "BIT000003",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 4,
-      payoutNo: "BIT000004",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 5,
-      payoutNo: "BIT000005",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 6,
-      payoutNo: "BIT000006",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 7,
-      payoutNo: "BIT000007",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 8,
-      payoutNo: "BIT000008",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 9,
-      payoutNo: "BIT000009",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 10,
-      payoutNo: "BIT000010",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 11,
-      payoutNo: "BIT000006",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 12,
-      payoutNo: "BIT000007",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 13,
-      payoutNo: "BIT000008",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 14,
-      payoutNo: "BIT000009",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-    {
-      sn: 15,
-      payoutNo: "BIT000010",
-      date: "21/09/2025",
-      particulars: "HRISHIKESH TENI",
-      debit: "0.00",
-      credit: "100.00",
-    },
-  ];
+export class TransactionHistoryComponent implements OnInit {
+  private readonly walletService = inject(CurrencyWalletService);
+  private readonly profileService = inject(MemberProfileService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
+  isLoading = false;
+  userData: MemberProfile | null = null;
+  transactions: Transaction[] = [];
+  errorMessage = '';
   currentPage = 1;
-  itemsPerPage = 5;
+  itemsPerPage = 10;
 
-  get currentItems(): Transaction[] {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.transactionData.slice(start, start + this.itemsPerPage);
+  get fullName(): string {
+    if (!this.userData) return '—';
+    const parts = [this.userData.title, this.userData.firstName, this.userData.lastName].filter(Boolean);
+    return parts.join(' ') || '—';
   }
 
   get totalPages(): number {
-    return Math.ceil(this.transactionData.length / this.itemsPerPage);
+    return Math.ceil(this.transactions.length / this.itemsPerPage);
   }
 
-  goToPage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
+  get paginatedTransactions(): Transaction[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return this.transactions.slice(start, start + this.itemsPerPage);
+  }
+
+  val(v: string | null | undefined): string {
+    return v ?? '—';
+  }
+
+  ngOnInit(): void {
+    this.loadOwnData();
+  }
+
+  private loadOwnData(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.profileService.getProfile().subscribe({
+      next: (profile) => {
+        this.userData = profile;
+        const loginId = profile.loginId;
+        if (!loginId) {
+          this.errorMessage = 'Login ID not found in profile.';
+          this.isLoading = false;
+          this.cdr.markForCheck();
+          return;
+        }
+        this.fetchTransactions(loginId);
+      },
+      error: () => {
+        this.errorMessage = 'Unable to load your profile.';
+        this.isLoading = false;
+        this.cdr.markForCheck();
+      },
+    });
+  }
+
+  private fetchTransactions(loginId: string): void {
+    this.walletService.getTransactionHistory(loginId).subscribe({
+      next: (res) => {
+        this.transactions = res ?? [];
+        this.isLoading = false;
+        this.cdr.markForCheck();
+      },
+      error: () => {
+        this.transactions = [];
+        this.isLoading = false;
+        this.cdr.markForCheck();
+      },
+    });
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.cdr.markForCheck();
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.cdr.markForCheck();
     }
   }
 }
